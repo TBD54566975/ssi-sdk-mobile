@@ -1,29 +1,8 @@
-# $PROJECT_NAME README
+# SSI SDK Mobile
 
-Congrats, project leads! You got a new project to grow!
+This project is a wrapper around the [SSI SDK]() for [Go Mobile](https://pkg.go.dev/golang.org/x/mobile), a tool used to build mobile bindings for the SDK supporting both Android and iOS.
 
-This stub is meant to help you form a strong community around your work. It's yours to adapt, and may 
-diverge from this initial structure. Just keep the files seeded in this repo, and the rest is yours to evolve! 
-
-## Introduction
-
-Orient users to the project here. This is a good place to start with an assumption
-that the user knows very little - so start with the Big Picture and show how this
-project fits into it. It may be good to reference/link the broader architecture in the
-`collaboration` repo or the developer site here.
-
-Then maybe a dive into what this project does.
-
-Diagrams and other visuals are helpful here. Perhaps code snippets showing usage.
-
-Project leads should complete, alongside this `README`:
-* [CODEOWNERS](./CODEOWNERS) - set project lead(s)
-* [CONTRIBUTING.md](./CONTRIBUTING.md) - Fill out how to: install prereqs, build, test, run, access CI, chat, discuss, file issues
-
-The other files in this template repo may be used as-is:
-* [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
-* [GOVERNANCE.md](./GOVERNANCE.md)
-* [LICENSE](./LICENSE)
+Initial [discussion here](https://github.com/TBD54566975/ssi-sdk/issues/181).
 
 ## Project Resources
 
