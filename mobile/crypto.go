@@ -1,21 +1,21 @@
-package crypto
+package mobile
 
 import (
 	ssi "github.com/TBD54566975/ssi-sdk/crypto"
 )
 
 var (
-	supportedKeyTypes = []string{KeyTypeToString(ssi.Ed25519), KeyTypeToString(ssi.X25519),
-		KeyTypeToString(ssi.SECP256k1), KeyTypeToString(ssi.P224), KeyTypeToString(ssi.P256),
-		KeyTypeToString(ssi.P384), KeyTypeToString(ssi.P521), KeyTypeToString(ssi.RSA)}
+	supportedKeyTypes = StringArray{Items: []string{keyTypeToString(ssi.Ed25519), keyTypeToString(ssi.X25519),
+		keyTypeToString(ssi.SECP256k1), keyTypeToString(ssi.P224), keyTypeToString(ssi.P256),
+		keyTypeToString(ssi.P384), keyTypeToString(ssi.P521), keyTypeToString(ssi.RSA)}}
 
-	signatureAlgs = []string{SignatureToString(ssi.EdDSA), SignatureToString(ssi.ES256K),
-		SignatureToString(ssi.ES256), SignatureToString(ssi.ES384), SignatureToString(ssi.PS256)}
+	signatureAlgs = StringArray{Items: []string{signatureToString(ssi.EdDSA), signatureToString(ssi.ES256K),
+		signatureToString(ssi.ES256), signatureToString(ssi.ES384), signatureToString(ssi.PS256)}}
 )
 
 func IsSupportedKeyType(kt string) bool {
 	supported := GetSupportedKeyTypes()
-	for _, t := range supported {
+	for _, t := range supported.Items {
 		if kt == t {
 			return true
 		}
@@ -23,13 +23,13 @@ func IsSupportedKeyType(kt string) bool {
 	return false
 }
 
-func GetSupportedKeyTypes() []string {
-	return supportedKeyTypes
+func GetSupportedKeyTypes() *StringArray {
+	return &supportedKeyTypes
 }
 
 func IsSupportedSignatureAlg(sa string) bool {
 	supported := GetSupportedSignatureAlgs()
-	for _, a := range supported {
+	for _, a := range supported.Items {
 		if sa == a {
 			return true
 		}
@@ -37,8 +37,8 @@ func IsSupportedSignatureAlg(sa string) bool {
 	return false
 }
 
-func GetSupportedSignatureAlgs() []string {
-	return signatureAlgs
+func GetSupportedSignatureAlgs() *StringArray {
+	return &signatureAlgs
 }
 
 // methods from crypto/keys.go

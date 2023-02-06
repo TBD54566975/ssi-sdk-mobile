@@ -1,15 +1,12 @@
-package did
+package mobile
 
 import (
-	gocrypto "crypto"
-
 	"github.com/TBD54566975/ssi-sdk/did"
-
-	"github.com/TBD54566975/ssi-sdk-mobile/crypto"
+	"github.com/TBD54566975/ssi-sdk/util"
 )
 
 type DIDKeyWrapper struct {
-	PrivateKey *gocrypto.PrivateKey // TODO update PrivateKey type
+	PrivateKey []byte
 	DIDKey     string
 }
 
@@ -23,9 +20,9 @@ type DIDKeyWrapper struct {
 // secpPrivKey, ok := privKey.(secp.PrivateKey)
 // if !ok { ... }
 func GenerateDIDKey(kt string) (*DIDKeyWrapper, error) {
-	privateKey, didKey, err := did.GenerateDIDKey(crypto.StringToKeyType(kt))
+	privateKey, didKey, err := did.GenerateDIDKey(stringToKeyType(kt))
 	return &DIDKeyWrapper{
-		PrivateKey: &privateKey,
+		PrivateKey: privateKey.([]byte),
 		DIDKey:     string(*didKey),
 	}, err
 }
@@ -34,7 +31,7 @@ func GenerateDIDKey(kt string) (*DIDKeyWrapper, error) {
 // This method does not attempt to validate that the provided public key is of the specified key type.
 // A safer method is `GenerateDIDKey` which handles key generation based on the provided key type.
 func CreateDIDKey(kt string, publicKey []byte) (string, error) {
-	didKey, err := did.CreateDIDKey(crypto.StringToKeyType(kt), publicKey)
+	didKey, err := did.CreateDIDKey(stringToKeyType(kt), publicKey)
 	return string(*didKey), err
 }
 
@@ -50,4 +47,28 @@ func DecodeDIDKey(d string) (*DecodedDIDKey, error) {
 		Data:    data,
 		KeyType: string(keyType),
 	}, err
+}
+
+// ExpandDIDKey Expand turns the DID key into a compliant DID Document
+func ExpandDIDKey(d string) (*DIDDocumentMobile, error) {
+	didDoc, err := did.DIDKey(d).Expand()
+	if err != nil {
+		return nil, err
+	}
+	contextArray, err := util.InterfaceToStrings(didDoc.Context)
+	if err != nil {
+		return nil, err
+	}
+	return &DIDDocumentMobile{
+		Context:              &StringArray{Items: contextArray},
+		ID:                   didDoc.ID,
+		Controller:           didDoc.Controller,
+		AlsoKnownAs:          didDoc.AlsoKnownAs,
+		VerificationMethod:   &VerificationMethodArray{Items: didDoc.VerificationMethod},
+		Authentication:       &VerificationMethodSetArray{Items: didDoc.Authentication},
+		AssertionMethod:      &VerificationMethodSetArray{Items: didDoc.AssertionMethod},
+		KeyAgreement:         &VerificationMethodSetArray{Items: didDoc.KeyAgreement},
+		CapabilityInvocation: &VerificationMethodSetArray{Items: didDoc.CapabilityInvocation},
+		CapabilityDelegation: &VerificationMethodSetArray{Items: didDoc.CapabilityDelegation},
+	}, nil
 }

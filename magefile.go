@@ -297,22 +297,9 @@ func installGoMobileIfNotPresent() error {
 	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/gomobile@latest")
 }
 
-// Mobile runs gomobile commands on specified packages for both Android and iOS
-func Mobile() {
-	pkgs := []string{"crypto", "did", "util"}
-	// if err := IOS(pkgs...); err != nil {
-	// 	logrus.WithError(err).Error("Error building iOS")
-	// 	return
-	// }
-	if err := Android(pkgs...); err != nil {
-		logrus.WithError(err).Error("Error building Android")
-		return
-	}
-}
-
 // IOS Generates the iOS packages
 // Note: this command also installs "gomobile" if not present
-func IOS(pkgs ...string) error {
+func IOS() error {
 	if err := installGoMobileIfNotPresent(); err != nil {
 		logrus.WithError(err).Fatal("Error installing gomobile")
 		return err
@@ -320,21 +307,12 @@ func IOS(pkgs ...string) error {
 
 	fmt.Println("Building iOS...")
 	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
-
-	for _, pkg := range pkgs {
-		fmt.Printf("Building [%s] package...\n", pkg)
-		if err := bindIOS(pkg); err != nil {
-			logrus.WithError(err).Fatalf("Error building iOS pkg: %s", pkg)
-			return err
-		}
-	}
-
-	return nil
+	return bindIOS("./mobile")
 }
 
 // Android Generates the Android packages
 // Note: this command also installs "gomobile" if not present
-func Android(pkgs ...string) error {
+func Android() error {
 	if err := installGoMobileIfNotPresent(); err != nil {
 		logrus.WithError(err).Fatal("Error installing gomobile")
 		return err
@@ -343,16 +321,7 @@ func Android(pkgs ...string) error {
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
 	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23")
-
-	for _, pkg := range pkgs {
-		fmt.Printf("Building [%s] package...\n", pkg)
-		if err := bindAndroid(pkg); err != nil {
-			logrus.WithError(err).Fatalf("Error building iOS pkg: %s", pkg)
-			return err
-		}
-	}
-
-	return nil
+	return bindAndroid("./mobile")
 }
 
 // Vuln downloads and runs govulncheck https://go.dev/blog/vuln
