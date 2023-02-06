@@ -5,7 +5,7 @@ import (
 
 	"github.com/TBD54566975/ssi-sdk/did"
 
-	"github.com/TBD54566975/ssi-sdk-mobile/mobile/crypto"
+	"github.com/TBD54566975/ssi-sdk-mobile/crypto"
 )
 
 type DIDKeyWrapper struct {

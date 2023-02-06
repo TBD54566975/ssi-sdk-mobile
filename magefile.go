@@ -31,22 +31,8 @@ const (
 
 // Build builds the library.
 func Build() error {
-
 	fmt.Println("Building...")
-	if err := sh.Run(Go, "build", "-tags", "jwx_es256k", "./..."); err != nil {
-		return err
-	}
-	return BuildWasm()
-}
-
-func BuildWasm() error {
-
-	fmt.Println("Building wasm...")
-	env := map[string]string{
-		"GOOS":   "js",
-		"GOARCH": "wasm",
-	}
-	return sh.RunWith(env, Go, "build", "-tags", "jwx_es256k", "-o", "./wasm/static/main.wasm", "./wasm")
+	return sh.Run(Go, "build", "-tags", "jwx_es256k", "./...")
 }
 
 // Clean deletes any build artifacts.
@@ -313,11 +299,11 @@ func installGoMobileIfNotPresent() error {
 
 // Mobile runs gomobile commands on specified packages for both Android and iOS
 func Mobile() {
-	pkgs := []string{"crypto", "did", "cryptosuite"}
-	if err := IOS(pkgs...); err != nil {
-		logrus.WithError(err).Error("Error building iOS")
-		return
-	}
+	pkgs := []string{"crypto", "did", "util"}
+	// if err := IOS(pkgs...); err != nil {
+	// 	logrus.WithError(err).Error("Error building iOS")
+	// 	return
+	// }
 	if err := Android(pkgs...); err != nil {
 		logrus.WithError(err).Error("Error building Android")
 		return
