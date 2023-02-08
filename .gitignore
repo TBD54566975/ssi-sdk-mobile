@@ -25,9 +25,10 @@
 *.jar
 
 # iOS
-example/ios/xcuserdata/
-example/ios/.build/
-example/ios/iOSInjectionProject/
+**/xcuserdata/
+**/.build/
+**/iOSInjectionProject/
+**/project.xcworkspace/
 *.hmap
 *.ipa
 *.dSYM.zip
