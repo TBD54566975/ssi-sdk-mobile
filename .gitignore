@@ -25,10 +25,11 @@
 *.jar
 
 # iOS
-xcuserdata/
+example/ios/xcuserdata/
+example/ios/.build/
+example/ios/iOSInjectionProject/
 *.hmap
 *.ipa
 *.dSYM.zip
 *.dSYM
-iOSInjectionProject/
-ios/.build/
+*.xcuserstate
