@@ -3,11 +3,13 @@ package identity
 import (
 	"github.com/TBD54566975/ssi-sdk/did"
 	"github.com/TBD54566975/ssi-sdk/util"
+	"github.com/goccy/go-json"
+	"github.com/lestrrat-go/jwx/jwk"
 )
 
 type DIDKeyWrapper struct {
-	PrivateKey []byte
-	DIDKey     string
+	PrivateJSONWebKey []byte
+	DIDKey            string
 }
 
 // GenerateDIDKey takes in a key type value that this library supports and constructs a conformant did:key identifier.
@@ -21,9 +23,17 @@ type DIDKeyWrapper struct {
 // if !ok { ... }
 func GenerateDIDKey(kt string) (*DIDKeyWrapper, error) {
 	privateKey, didKey, err := did.GenerateDIDKey(stringToKeyType(kt))
+	jwkKey, err := jwk.New(privateKey)
+	if err != nil {
+		return nil, err
+	}
+	data, err := json.Marshal(jwkKey)
+	if err != nil {
+		return nil, err
+	}
 	return &DIDKeyWrapper{
-		PrivateKey: privateKey.([]byte),
-		DIDKey:     string(*didKey),
+		PrivateJSONWebKey: data,
+		DIDKey:            string(*didKey),
 	}, err
 }
 

@@ -19,7 +19,14 @@ class ViewController: UIViewController {
         let did = IdentityGenerateDIDKey("RSA", &error);
         
         print(did?.didKey);
-        print(did?.privateKey);
+        if let unwrapped = did?.privateJSONWebKey {
+            do {
+                let json = try JSONSerialization.jsonObject(with: unwrapped);
+                print(json)
+            } catch {
+                print("Error while parsing JSON: \(error)")
+            }
+        }
     }
 
 

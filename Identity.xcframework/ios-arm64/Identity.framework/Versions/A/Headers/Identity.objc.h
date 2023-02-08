@@ -65,7 +65,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) NSData* _Nullable privateKey;
+@property (nonatomic) NSData* _Nullable privateJSONWebKey;
 @property (nonatomic) NSString* _Nonnull didKey;
 @end
 
