@@ -20,6 +20,7 @@ import (
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/term"
 )
@@ -70,10 +71,13 @@ func runTests(extraTestArgs ...string) error {
 }
 
 func runFuzzTests(extraTestArgs ...string) error {
-	dirs := []string{"./did"}
+	dirs := []string{}
 
 	for _, dir := range dirs {
-		functionNames, _ := getFuzzTests(dir)
+		functionNames, err := getFuzzTests(dir)
+		if err != nil {
+			return errors.Wrap(err, "getting fuzz tests")
+		}
 
 		for _, testName := range functionNames {
 			args := []string{"test"}
@@ -103,7 +107,11 @@ func runFuzzTests(extraTestArgs ...string) error {
 func getFuzzTests(src string) ([]string, error) {
 	// src is the input for which we want to inspect the AST.
 	var testFilePaths []string
-	filepath.WalkDir(src, func(path string, d fs.DirEntry, err error) error {
+
+	if err := filepath.WalkDir(src, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
 		if d.IsDir() {
 			return nil
 		}
@@ -112,7 +120,9 @@ func getFuzzTests(src string) ([]string, error) {
 		}
 		testFilePaths = append(testFilePaths, path)
 		return nil
-	})
+	}); err != nil {
+		return testFilePaths, errors.Wrapf(err, "walking directory %s", src)
+	}
 
 	// Create the AST by parsing src.
 	fset := token.NewFileSet() // positions are relative to fset
@@ -306,7 +316,7 @@ func IOS() error {
 	}
 
 	fmt.Println("Building iOS...")
-	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
+	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
 	return bindIOS("./identity")
 }
 

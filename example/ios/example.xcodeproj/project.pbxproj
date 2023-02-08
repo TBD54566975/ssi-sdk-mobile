@@ -51,7 +51,7 @@
 		84EC056A29935E41001904E4 /* exampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = exampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EC056E29935E41001904E4 /* exampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exampleUITests.swift; sourceTree = "<group>"; };
 		84EC057029935E41001904E4 /* exampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		84EC058429936A3A001904E4 /* Identity.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Identity.xcframework; path = ../../../Identity.xcframework; sourceTree = "<group>"; };
+		84EC058429936A3A001904E4 /* Identity.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Identity.xcframework; path = ../../Identity.xcframework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +138,9 @@
 			children = (
 				84EC058429936A3A001904E4 /* Identity.xcframework */,
 			);
-			path = Frameworks;
-			sourceTree = "<group>";
+			name = Frameworks;
+			path = ../../Identity.xcframework;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

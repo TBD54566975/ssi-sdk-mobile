@@ -91,7 +91,3 @@ func stringToKeyType(s string) ssi.KeyType {
 func signatureToString(s ssi.SignatureAlgorithm) string {
 	return string(s)
 }
-
-func stringToSignature(s string) ssi.SignatureAlgorithm {
-	return ssi.SignatureAlgorithm(s)
-}
