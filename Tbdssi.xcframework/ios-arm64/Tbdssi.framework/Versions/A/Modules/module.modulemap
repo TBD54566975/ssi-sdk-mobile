@@ -1,0 +1,8 @@
+framework module "Tbdssi" {
+	header "ref.h"
+    header "Tbdssi.objc.h"
+    header "Universe.objc.h"
+    header "Tbdssi.h"
+
+    export *
+}
