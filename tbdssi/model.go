@@ -1,4 +1,4 @@
-package mobile
+package tbdssi
 
 type DIDDocumentMobile struct {
 	Context              *StringArray                `json:"@context,omitempty"`
