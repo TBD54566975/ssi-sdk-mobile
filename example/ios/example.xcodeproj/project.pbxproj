@@ -14,8 +14,9 @@
 		843437D22992B6F600899E59 /* exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843437D12992B6F600899E59 /* exampleTests.swift */; };
 		843437DC2992B6F600899E59 /* exampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843437DB2992B6F600899E59 /* exampleUITests.swift */; };
 		843437DE2992B6F600899E59 /* exampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843437DD2992B6F600899E59 /* exampleUITestsLaunchTests.swift */; };
-		84EC053C2992B9EC001904E4 /* Mobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC053B2992B9EC001904E4 /* Mobile.xcframework */; };
 		84EC053D2992B9EC001904E4 /* Mobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC053B2992B9EC001904E4 /* Mobile.xcframework */; };
+		84EC053E299359B9001904E4 /* Mobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC053B2992B9EC001904E4 /* Mobile.xcframework */; };
+		84EC053F299359B9001904E4 /* Mobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC053B2992B9EC001904E4 /* Mobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,20 @@
 			remoteInfo = example;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		84EC0540299359B9001904E4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				84EC053F299359B9001904E4 /* Mobile.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		843437BC2992B6F500899E59 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EC053C2992B9EC001904E4 /* Mobile.xcframework in Frameworks */,
+				84EC053E299359B9001904E4 /* Mobile.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +160,7 @@
 				843437B82992B6F500899E59 /* Sources */,
 				843437B92992B6F500899E59 /* Frameworks */,
 				843437BA2992B6F500899E59 /* Resources */,
+				84EC0540299359B9001904E4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
