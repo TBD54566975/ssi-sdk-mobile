@@ -140,7 +140,7 @@
 			);
 			name = Frameworks;
 			path = ../../Identity.xcframework;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

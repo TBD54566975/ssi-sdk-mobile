@@ -306,7 +306,7 @@ func IOS() error {
 	}
 
 	fmt.Println("Building iOS...")
-	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
+	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
 	return bindIOS("./identity")
 }
 
