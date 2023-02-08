@@ -16,8 +16,8 @@
 		84EC056529935E41001904E4 /* exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EC056429935E41001904E4 /* exampleTests.swift */; };
 		84EC056F29935E41001904E4 /* exampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EC056E29935E41001904E4 /* exampleUITests.swift */; };
 		84EC057129935E41001904E4 /* exampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EC057029935E41001904E4 /* exampleUITestsLaunchTests.swift */; };
-		84EC05822993644C001904E4 /* Tbdssi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC05812993644C001904E4 /* Tbdssi.xcframework */; };
-		84EC05832993644C001904E4 /* Tbdssi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC05812993644C001904E4 /* Tbdssi.xcframework */; };
+		84EC058529936A3A001904E4 /* Identity.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC058429936A3A001904E4 /* Identity.xcframework */; };
+		84EC058629936A3A001904E4 /* Identity.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EC058429936A3A001904E4 /* Identity.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,7 @@
 		84EC056A29935E41001904E4 /* exampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = exampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EC056E29935E41001904E4 /* exampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exampleUITests.swift; sourceTree = "<group>"; };
 		84EC057029935E41001904E4 /* exampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		84EC05812993644C001904E4 /* Tbdssi.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Tbdssi.xcframework; path = ../../../Tbdssi.xcframework; sourceTree = "<group>"; };
+		84EC058429936A3A001904E4 /* Identity.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Identity.xcframework; path = ../../../Identity.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EC05822993644C001904E4 /* Tbdssi.xcframework in Frameworks */,
+				84EC058529936A3A001904E4 /* Identity.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EC05832993644C001904E4 /* Tbdssi.xcframework in Frameworks */,
+				84EC058629936A3A001904E4 /* Identity.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +136,7 @@
 		84EC057D29935E6A001904E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84EC05812993644C001904E4 /* Tbdssi.xcframework */,
+				84EC058429936A3A001904E4 /* Identity.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
