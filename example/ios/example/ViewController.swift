@@ -38,11 +38,27 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // put private key in secure storage
+    func storePrivateKey(key: String) throws {
+        let tag = "com.tbd.example".data(using: .utf8)!
+        let query: [String: Any] = [kSecClass as String: kSecClassKey,
+                                       kSecAttrApplicationTag as String: tag,
+                     kSecValueRef as String: key]
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        guard status == errSecSuccess else { throw KeychainError.failure }
+    }
+    
     // utils
     func addLog(text: String) {
         let currentLogs = self.LittleConsole.text ?? "";
         self.LittleConsole.text = currentLogs + text + "\n\n";
         print(text);
     }
+    
+    enum KeychainError: Error {
+          case failure
+      }
 }
 
