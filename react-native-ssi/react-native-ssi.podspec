@@ -11,9 +11,10 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "11.0" }
-  s.source       = { :git => "https://github.com/TBD54566975/react-native-ssi.git", :tag => "#{s.version}" }
-
+  s.platforms    = { :ios => "12.4" }
+  s.source       = { :git => "https://github.com/TBD54566975/ssi-sdk-mobile.git", :tag => "#{s.version}" }
+  # s.vendored_frameworks = '../sdk/Identity.xcframework'
+  s.dependency "ssi"
   s.source_files = "ios/**/*.{h,m,mm}", "cpp/**/*.{h,cpp}"
 
   s.dependency "React-Core"

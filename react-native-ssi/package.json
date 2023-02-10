@@ -33,7 +33,7 @@
     "prepack": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn install && cd example && bundle install && npx pod-install",
+    "bootstrap": "yarn example && yarn install && cd example && npx pod-install",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
   },
   "keywords": [
