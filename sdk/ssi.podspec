@@ -6,5 +6,5 @@ Pod::Spec.new do |s|
   s.license      = "Apache"
   s.authors      = "Tim Shamilov"
   s.source       = { :git => "https://github.com/TBD54566975/ssi-sdk-mobile.git", :tag => "#{s.version}" }
-  s.vendored_frameworks = 'Identity.xcframework'
+  s.vendored_frameworks = 'Ssi.xcframework'
 end

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Identity
+import Ssi
 
 class ViewController: UIViewController {
     
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         // let supportedKeyTypes = IdentityGetSupportedKeyTypes();
         
         var error: NSError? = NSError()
-        let did = IdentityGenerateDIDKey("secp256k1", &error);
+        let did = SsiGenerateDIDKey("secp256k1", &error);
         
         if let unwrapped = did?.privateJSONWebKey {
             do {
