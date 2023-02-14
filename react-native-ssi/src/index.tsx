@@ -10,8 +10,8 @@ const LINKING_ERROR =
 const isTurboModuleEnabled = global.__turboModuleProxy != null;
 
 const SsiModule = isTurboModuleEnabled
-  ? require('./NativeSsi').default
-  : NativeModules.Ssi;
+  ? require('./NativeRNSsi').default
+  : NativeModules.RNSsi;
 
 const Ssi = SsiModule
   ? SsiModule
@@ -24,6 +24,16 @@ const Ssi = SsiModule
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
+export function multiply(a: number, b: number) {
   return Ssi.multiply(a, b);
+}
+
+// need to expand
+type KeyType = 'ed25519' | 'secp256k1' | 'x25519';
+export function generateDidKey(keyType: KeyType) {
+  try {
+    return Ssi.generateDidKey(keyType);
+  } catch (e) {
+    return e;
+  }
 }

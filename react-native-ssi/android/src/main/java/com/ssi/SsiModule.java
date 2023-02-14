@@ -19,16 +19,11 @@ public class SsiModule extends SsiSpec {
     return NAME;
   }
 
-  static {
-    System.loadLibrary("cpp");
-  }
-
-  public static native double nativeMultiply(double a, double b);
 
   // Example method
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
   public void multiply(double a, double b, Promise promise) {
-    promise.resolve(nativeMultiply(a, b));
+    promise.resolve(a * b);
   }
 }

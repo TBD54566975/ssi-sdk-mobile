@@ -1,7 +1,7 @@
 {
   "name": "react-native-ssi",
   "version": "0.1.0",
-  "description": "test",
+  "description": "Module for Block's Self Sovereign Identity SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
