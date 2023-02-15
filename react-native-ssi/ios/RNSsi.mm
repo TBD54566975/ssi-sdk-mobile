@@ -4,20 +4,6 @@
 @implementation RNSsi
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(double)a withB:(double)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    
-    NSError *error = [[NSError alloc] init];
-    
-    SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(@"secp256k1", &error);
-    resolve(thing.didKey);
-}
-
 RCT_REMAP_METHOD(generateDidKey,
                  ofType:(NSString*)key
                  withResolver:(RCTPromiseResolveBlock)resolve
