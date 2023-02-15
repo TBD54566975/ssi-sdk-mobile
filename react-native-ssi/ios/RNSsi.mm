@@ -12,7 +12,7 @@ RCT_REMAP_METHOD(generateDidKey,
     NSError *error = [[NSError alloc] init];
     
     @try  {
-        SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(@"secp256k1", &error);
+        SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(key, &error);
         resolve(thing.didKey);
     } @catch (NSException *exception) {
         //        reject(exception);
