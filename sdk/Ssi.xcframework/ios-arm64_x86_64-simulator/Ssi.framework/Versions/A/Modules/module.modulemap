@@ -1,0 +1,8 @@
+framework module "Ssi" {
+	header "ref.h"
+    header "Ssi.objc.h"
+    header "Universe.objc.h"
+    header "Ssi.h"
+
+    export *
+}
