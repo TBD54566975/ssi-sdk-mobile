@@ -47,7 +47,7 @@ jobs:
         run: go install github.com/magefile/mage
 
       - name: Build
-        run: cd sdk && mage build
+        run: mage build
 
       - name: Test
         run: mage citest
