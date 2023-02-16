@@ -306,7 +306,7 @@ func IOS() error {
 	}
 
 	fmt.Println("Building iOS...")
-	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
+	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
 	return bindIOS("./mobile")
 }
 
@@ -320,7 +320,7 @@ func Android() error {
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23")
+	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
 	return bindAndroid("./mobile")
 }
 

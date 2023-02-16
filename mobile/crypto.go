@@ -72,7 +72,7 @@ type ECDSAKeyPair struct {
 	PrivKeyD int64
 }
 
-func GenerateSecp256k1Key() (*ECDSAKeyPair, error) {
+func GenerateSECP256k1Key() (*ECDSAKeyPair, error) {
 	pubKey, privKey, err := ssi.GenerateSECP256k1Key()
 	ecdsaPubKey := pubKey.ToECDSA()
 	ecdsaPrivKey := privKey.ToECDSA()

@@ -1,6 +1,8 @@
 package mobile
 
 import (
+	"strings"
+
 	ssi "github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/did"
 )
@@ -85,7 +87,26 @@ func keyTypeToString(kt ssi.KeyType) string {
 }
 
 func stringToKeyType(s string) ssi.KeyType {
-	return ssi.KeyType(s)
+	switch strings.ToLower(s) {
+	case "ed25519":
+		return ssi.Ed25519
+	case "x25519":
+		return ssi.X25519
+	case "secp256k1":
+		return ssi.SECP256k1
+	case "p-224":
+		return ssi.P224
+	case "p-256":
+		return ssi.P256
+	case "p-384":
+		return ssi.P384
+	case "p-521":
+		return ssi.P521
+	case "rsa":
+		return ssi.RSA
+	default:
+		return ssi.KeyType(s)
+	}
 }
 
 func signatureToString(s ssi.SignatureAlgorithm) string {
