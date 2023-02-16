@@ -1,6 +1,6 @@
 //go:build mage
 
-package main
+package sdk
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ import (
 
 const (
 	Go       = "go"
-	gomobile = "gomobile"
+	gomobile = "sdk"
 )
 
 // Build builds the library.
@@ -220,34 +220,34 @@ func runCITests(extraTestArgs ...string) error {
 }
 
 func installGoMobileIfNotPresent() error {
-	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/gomobile@latest")
+	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/sdk@latest")
 }
 
 // IOS Generates the iOS packages
-// Note: this command also installs "gomobile" if not present
+// Note: this command also installs "sdk" if not present
 func IOS() error {
 	if err := installGoMobileIfNotPresent(); err != nil {
-		logrus.WithError(err).Fatal("Error installing gomobile")
+		logrus.WithError(err).Fatal("Error installing sdk")
 		return err
 	}
 
 	fmt.Println("Building iOS...")
 	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
-	return bindIOS("./gomobile")
+	return bindIOS("./pkg")
 }
 
 // Android Generates the Android packages
-// Note: this command also installs "gomobile" if not present
+// Note: this command also installs "sdk" if not present
 func Android() error {
 	if err := installGoMobileIfNotPresent(); err != nil {
-		logrus.WithError(err).Fatal("Error installing gomobile")
+		logrus.WithError(err).Fatal("Error installing sdk")
 		return err
 	}
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
-	return bindAndroid("./gomobile")
+	bindAndroid := sh.RunCmd("sdk", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
+	return bindAndroid("./pkg")
 }
 
 // Vuln downloads and runs govulncheck https://go.dev/blog/vuln

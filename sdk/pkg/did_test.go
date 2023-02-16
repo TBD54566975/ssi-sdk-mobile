@@ -1,4 +1,4 @@
-package gomobile
+package pkg
 
 import (
 	"strings"

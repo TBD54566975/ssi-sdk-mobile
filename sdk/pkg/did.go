@@ -1,10 +1,9 @@
-package gomobile
+package pkg
 
 import (
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/did"
 	"github.com/TBD54566975/ssi-sdk/util"
-	"github.com/goccy/go-json"
 	"github.com/pkg/errors"
 )
 
