@@ -1,15 +1,17 @@
 package com.ssi;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 
-public class SsiModule extends SsiSpec {
-  public static final String NAME = "Ssi";
+public class RNSsiModule extends com.ssi.RNSsiSpec {
+  public static final String NAME = "RNSsi";
 
-  SsiModule(ReactApplicationContext context) {
+  RNSsiModule(ReactApplicationContext context) {
     super(context);
   }
 
@@ -25,5 +27,10 @@ public class SsiModule extends SsiSpec {
   @ReactMethod
   public void multiply(double a, double b, Promise promise) {
     promise.resolve(a * b);
+  }
+
+  @ReactMethod
+  public void generateDidKey(String keyType, Promise promise) {
+    promise.resolve("abcd");
   }
 }
