@@ -1,6 +1,6 @@
 //go:build mage
 
-package sdk
+package main
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ import (
 
 const (
 	Go       = "go"
-	gomobile = "sdk"
+	gomobile = "gomobile"
 )
 
 // Build builds the library.
@@ -220,7 +220,7 @@ func runCITests(extraTestArgs ...string) error {
 }
 
 func installGoMobileIfNotPresent() error {
-	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/sdk@latest")
+	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/gomobile@latest")
 }
 
 // IOS Generates the iOS packages
@@ -246,7 +246,7 @@ func Android() error {
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("sdk", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
+	bindAndroid := sh.RunCmd(gomobile, "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
 	return bindAndroid("./pkg")
 }
 
