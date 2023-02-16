@@ -1,4 +1,4 @@
-package pkg
+package gomobile
 
 import (
 	ssi "github.com/TBD54566975/ssi-sdk/crypto"

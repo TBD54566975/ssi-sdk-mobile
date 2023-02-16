@@ -1,4 +1,4 @@
-package pkg
+package gomobile
 
 type DIDDocumentMobile struct {
 	Context              *StringArray                `json:"@context,omitempty"`
