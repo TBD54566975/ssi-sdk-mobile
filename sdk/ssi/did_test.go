@@ -1,4 +1,4 @@
-package pkg
+package ssi
 
 import (
 	"strings"

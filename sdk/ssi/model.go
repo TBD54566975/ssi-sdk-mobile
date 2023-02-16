@@ -1,4 +1,4 @@
-package pkg
+package ssi
 
 type DIDDocumentMobile struct {
 	Context              *StringArray                `json:"@context,omitempty"`

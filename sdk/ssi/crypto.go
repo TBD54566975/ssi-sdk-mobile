@@ -1,4 +1,4 @@
-package pkg
+package ssi
 
 import (
 	ssi "github.com/TBD54566975/ssi-sdk/crypto"
