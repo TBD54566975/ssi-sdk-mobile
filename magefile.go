@@ -232,8 +232,8 @@ func IOS() error {
 	}
 
 	fmt.Println("Building iOS...")
-	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
-	return bindIOS("./mobile")
+	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
+	return bindIOS("./pkg")
 }
 
 // Android Generates the Android packages
@@ -246,8 +246,8 @@ func Android() error {
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23")
-	return bindAndroid("./mobile")
+	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
+	return bindAndroid("./pkg")
 }
 
 // Vuln downloads and runs govulncheck https://go.dev/blog/vuln
