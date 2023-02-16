@@ -35,7 +35,7 @@ If a maintainer opposes a proposed change, then the change cannot land. The exce
 See:
 
 * [List of maintainers - `MAINTAINERS.md`](./MAINTAINERS.md)
-* [Contribution Guide - `CONTRIBUTING.md`](./CONTRIBUTING.md)
+* [Contribution Guide - `CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ### Maintainer activities
 

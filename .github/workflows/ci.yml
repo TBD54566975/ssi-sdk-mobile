@@ -1,4 +1,4 @@
-name: ssi-sdk-mobile-ci
+name: ssi-pkg-mobile-ci
 
 # when:
 #   - a pull request is opened against main

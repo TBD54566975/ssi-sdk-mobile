@@ -1,6 +1,6 @@
 //go:build mage
 
-package main
+package ssi_sdk_mobile
 
 import (
 	"fmt"
@@ -192,6 +192,33 @@ func CBT() error {
 	return nil
 }
 
+// CITest runs unit tests with coverage as a part of CI.
+// The mage `-v` option will trigger a verbose output of the test
+func CITest() error {
+	return runCITests()
+}
+
+func runCITests(extraTestArgs ...string) error {
+	args := []string{"test"}
+	if mg.Verbose() {
+		args = append(args, "-v")
+	}
+	args = append(args, "-tags=jwx_es256k")
+	args = append(args, "-covermode=atomic")
+	args = append(args, "-coverprofile=coverage.out")
+	args = append(args, "-race")
+	args = append(args, extraTestArgs...)
+	args = append(args, "./...")
+	testEnv := map[string]string{
+		"CGO_ENABLED": "1",
+		"GO111MODULE": "on",
+	}
+	writer := ColorizeTestStdout()
+	fmt.Printf("%+v", args)
+	_, err := sh.Exec(testEnv, writer, os.Stderr, Go, args...)
+	return err
+}
+
 func installGoMobileIfNotPresent() error {
 	return installIfNotPresent(gomobile, "golang.org/x/mobile/cmd/gomobile@latest")
 }
@@ -205,8 +232,8 @@ func IOS() error {
 	}
 
 	fmt.Println("Building iOS...")
-	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
-	return bindIOS("./src/ssi")
+	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios")
+	return bindIOS("./mobile")
 }
 
 // Android Generates the Android packages
@@ -219,8 +246,8 @@ func Android() error {
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
-	return bindAndroid("./src/ssi")
+	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23")
+	return bindAndroid("./mobile")
 }
 
 // Vuln downloads and runs govulncheck https://go.dev/blog/vuln

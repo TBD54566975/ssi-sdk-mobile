@@ -5,6 +5,34 @@
 *.aar
 *.jar
 
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+.gobincache
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
 # IDE
+.idea/
 .vscode
-.idea
+
+# iOS
+**/xcuserdata/
+**/.build/
+**/iOSInjectionProject/
+**/project.xcworkspace/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcuserstate
