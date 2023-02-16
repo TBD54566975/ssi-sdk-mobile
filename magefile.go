@@ -1,6 +1,6 @@
 //go:build mage
 
-package ssi_sdk_mobile
+package main
 
 import (
 	"fmt"
