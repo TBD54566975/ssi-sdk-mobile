@@ -4,11 +4,7 @@ package main
 
 import (
 	"fmt"
-	"go/ast"
-	"go/parser"
-	"go/token"
 	"io"
-	"io/fs"
 	"log"
 	"os"
 	"os/exec"
@@ -20,7 +16,6 @@ import (
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/term"
 )
@@ -48,10 +43,6 @@ func Test() error {
 	return runTests()
 }
 
-func Fuzz() error {
-	return runFuzzTests()
-}
-
 func runTests(extraTestArgs ...string) error {
 	args := []string{"test"}
 	if mg.Verbose() {
@@ -68,81 +59,6 @@ func runTests(extraTestArgs ...string) error {
 	_, _ = fmt.Printf("%+v", args)
 	_, err := sh.Exec(testEnv, writer, os.Stderr, Go, args...)
 	return err
-}
-
-func runFuzzTests(extraTestArgs ...string) error {
-	dirs := []string{}
-
-	for _, dir := range dirs {
-		functionNames, err := getFuzzTests(dir)
-		if err != nil {
-			return errors.Wrap(err, "getting fuzz tests")
-		}
-
-		for _, testName := range functionNames {
-			args := []string{"test"}
-			if mg.Verbose() {
-				args = append(args, "-v")
-			}
-			args = append(args, dir)
-			args = append(args, fmt.Sprintf("-run=%s", testName))
-			args = append(args, fmt.Sprintf("-fuzz=%s", testName))
-			args = append(args, "-fuzztime=10s")
-			testEnv := map[string]string{
-				"CGO_ENABLED": "1",
-				"GO111MODULE": "on",
-			}
-			writer := ColorizeTestStdout()
-			fmt.Printf("%+v\n", args)
-			_, err := sh.Exec(testEnv, writer, os.Stderr, Go, args...)
-			if err != nil {
-				return err
-			}
-		}
-
-	}
-	return nil
-}
-
-func getFuzzTests(src string) ([]string, error) {
-	// src is the input for which we want to inspect the AST.
-	var testFilePaths []string
-
-	if err := filepath.WalkDir(src, func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if d.IsDir() {
-			return nil
-		}
-		if !strings.HasSuffix(path, "test.go") {
-			return nil
-		}
-		testFilePaths = append(testFilePaths, path)
-		return nil
-	}); err != nil {
-		return testFilePaths, errors.Wrapf(err, "walking directory %s", src)
-	}
-
-	// Create the AST by parsing src.
-	fset := token.NewFileSet() // positions are relative to fset
-	var testNames []string
-	for _, filename := range testFilePaths {
-		// Pass in nil to automatically parse the file
-		f, err := parser.ParseFile(fset, filename, nil, 0)
-		if err != nil {
-			panic(err)
-		}
-		ast.FileExports(f)
-		ast.FilterFile(f, func(s string) bool {
-			p := strings.HasPrefix(s, "Fuzz")
-			if p {
-				testNames = append(testNames, s)
-			}
-			return p
-		})
-	}
-	return testNames, nil
 }
 
 func Deps() error {
@@ -274,33 +190,6 @@ func CBT() error {
 		return err
 	}
 	return nil
-}
-
-// CITest runs unit tests with coverage as a part of CI.
-// The mage `-v` option will trigger a verbose output of the test
-func CITest() error {
-	return runCITests()
-}
-
-func runCITests(extraTestArgs ...string) error {
-	args := []string{"test"}
-	if mg.Verbose() {
-		args = append(args, "-v")
-	}
-	args = append(args, "-tags=jwx_es256k")
-	args = append(args, "-covermode=atomic")
-	args = append(args, "-coverprofile=coverage.out")
-	args = append(args, "-race")
-	args = append(args, extraTestArgs...)
-	args = append(args, "./...")
-	testEnv := map[string]string{
-		"CGO_ENABLED": "1",
-		"GO111MODULE": "on",
-	}
-	writer := ColorizeTestStdout()
-	fmt.Printf("%+v", args)
-	_, err := sh.Exec(testEnv, writer, os.Stderr, Go, args...)
-	return err
 }
 
 func installGoMobileIfNotPresent() error {

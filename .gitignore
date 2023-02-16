@@ -1,3 +1,10 @@
 # OSX
-#
 .DS_Store
+
+# Build
+*.aar
+*.jar
+
+# IDE
+.vscode
+.idea
