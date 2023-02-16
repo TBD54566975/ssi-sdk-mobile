@@ -5,19 +5,32 @@
 RCT_EXPORT_MODULE()
 
 RCT_REMAP_METHOD(generateDidKey,
-                 ofType:(NSString*)key
+                 ofType:(NSString*)keyType
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
     NSError *error = [[NSError alloc] init];
     
     @try  {
-        SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(key, &error);
+        SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(keyType, &error);
         resolve(thing.didKey);
     } @catch (NSException *exception) {
-        //        reject(exception);
-        //        reject(@"error", @"error description", error);
-        
+        reject(@"Something weng wrong", @"wrong", error);
+    }
+}
+
+RCT_REMAP_METHOD(createDidKey,
+                 ofType:(NSString*)keyType
+                 withPublicKey:(NSData*)publicKey
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSError *error = [[NSError alloc] init];
+    
+    @try  {
+        NSString *thing = SsiCreateDIDKey(keyType, publicKey, &error);
+    } @catch (NSException *exception) {
+        reject(@"Something weng wrong", @"wrong", error);
     }
 }
 
