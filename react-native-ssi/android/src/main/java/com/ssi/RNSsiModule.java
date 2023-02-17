@@ -8,6 +8,9 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 
+import ssi.DIDKeyWrapper;
+import ssi.Ssi;
+
 public class RNSsiModule extends com.ssi.RNSsiSpec {
   public static final String NAME = "RNSsi";
 
@@ -31,6 +34,12 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
 
   @ReactMethod
   public void generateDidKey(String keyType, Promise promise) {
-    promise.resolve("abcd");
+    try {
+      DIDKeyWrapper didKeyWrapper = Ssi.generateDIDKey(keyType);
+      String didKey = didKeyWrapper.getDIDKey();
+      promise.resolve(didKey);
+    } catch (Exception e) {
+      promise.reject(e);
+    }
   }
 }

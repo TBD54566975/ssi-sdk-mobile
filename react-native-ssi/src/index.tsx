@@ -24,8 +24,15 @@ const Ssi = SsiModule
       }
     );
 
-// need to expand
-type KeyType = 'ed25519' | 'secp256k1' | 'x25519';
+type KeyType =
+  | 'Ed25519'
+  | 'secp256k1'
+  | 'X25519'
+  | 'RSA'
+  | 'P-224'
+  | 'P-256'
+  | 'P-384'
+  | 'P-521';
 export function generateDidKey(keyType: KeyType) {
   try {
     return Ssi.generateDidKey(keyType);

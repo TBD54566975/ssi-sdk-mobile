@@ -24,7 +24,7 @@ export default function App() {
           <>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => generateDidKey('secp256k1').then(addLogLine)}
+              onPress={() => generateDidKey('RSA').then(addLogLine)}
             >
               <Text style={styles.buttonText}>Generate DID</Text>
             </TouchableOpacity>
