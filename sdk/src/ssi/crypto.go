@@ -6,7 +6,7 @@ import (
 
 var (
 	supportedKeyTypes = StringArray{Items: []string{keyTypeToString(ssi.Ed25519), keyTypeToString(ssi.X25519),
-		keyTypeToString(ssi.SECP256k1), keyTypeToString(ssi.P224), keyTypeToString(ssi.P256),
+		keyTypeToString(ssi.SECP256k1), keyTypeToString(ssi.P256),
 		keyTypeToString(ssi.P384), keyTypeToString(ssi.P521), keyTypeToString(ssi.RSA)}}
 
 	signatureAlgs = StringArray{Items: []string{signatureToString(ssi.EdDSA), signatureToString(ssi.ES256K),
@@ -82,17 +82,6 @@ func GenerateSecp256k1Key() (*ECDSAKeyPair, error) {
 		PrivKeyX: ecdsaPrivKey.X.Int64(),
 		PrivKeyY: ecdsaPrivKey.Y.Int64(),
 		PrivKeyD: ecdsaPrivKey.D.Int64(),
-	}, err
-}
-
-func GenerateP224Key() (*ECDSAKeyPair, error) {
-	pubKey, privKey, err := ssi.GenerateP224Key()
-	return &ECDSAKeyPair{
-		PubKeyX:  pubKey.X.Int64(),
-		PubKeyY:  pubKey.Y.Int64(),
-		PrivKeyX: privKey.X.Int64(),
-		PrivKeyY: privKey.Y.Int64(),
-		PrivKeyD: privKey.D.Int64(),
 	}, err
 }
 
