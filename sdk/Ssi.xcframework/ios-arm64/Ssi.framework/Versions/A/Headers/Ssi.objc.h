@@ -199,8 +199,6 @@ FOUNDATION_EXPORT SsiDIDKeyWrapper* _Nullable SsiGenerateDIDKey(NSString* _Nulla
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateEd25519Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP224Key(NSError* _Nullable* _Nullable error);
-
 FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP256Key(NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP384Key(NSError* _Nullable* _Nullable error);
