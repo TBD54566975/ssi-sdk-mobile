@@ -79,10 +79,10 @@ func ExpandDIDKey(d string) (*DIDDocumentMobile, error) {
 		Controller:           didDoc.Controller,
 		AlsoKnownAs:          didDoc.AlsoKnownAs,
 		VerificationMethod:   &VerificationMethodArray{items: didDoc.VerificationMethod},
-		Authentication:       &VerificationMethodSetArray{Items: didDoc.Authentication},
-		AssertionMethod:      &VerificationMethodSetArray{Items: didDoc.AssertionMethod},
-		KeyAgreement:         &VerificationMethodSetArray{Items: didDoc.KeyAgreement},
-		CapabilityInvocation: &VerificationMethodSetArray{Items: didDoc.CapabilityInvocation},
-		CapabilityDelegation: &VerificationMethodSetArray{Items: didDoc.CapabilityDelegation},
+		Authentication:       &VerificationMethodSetArray{items: didDoc.Authentication},
+		AssertionMethod:      &VerificationMethodSetArray{items: didDoc.AssertionMethod},
+		KeyAgreement:         &VerificationMethodSetArray{items: didDoc.KeyAgreement},
+		CapabilityInvocation: &VerificationMethodSetArray{items: didDoc.CapabilityInvocation},
+		CapabilityDelegation: &VerificationMethodSetArray{items: didDoc.CapabilityDelegation},
 	}, nil
 }

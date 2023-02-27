@@ -148,8 +148,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field VerificationMethodSetArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.VerificationMethodSet
-
 // skipped method VerificationMethodSetArray.Add with unsupported parameter or return types
 
 // skipped method VerificationMethodSetArray.Get with unsupported parameter or return types

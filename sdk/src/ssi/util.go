@@ -46,20 +46,20 @@ func (vma *VerificationMethodArray) Size() int {
 }
 
 type VerificationMethodSetArray struct {
-	Items []did.VerificationMethodSet
+	items []did.VerificationMethodSet
 }
 
 func (vmsa *VerificationMethodSetArray) Add(item *did.VerificationMethodSet) *VerificationMethodSetArray {
-	vmsa.Items = append(vmsa.Items, *item)
+	vmsa.items = append(vmsa.items, *item)
 	return vmsa
 }
 
 func (vmsa *VerificationMethodSetArray) Get(i int) *did.VerificationMethodSet {
-	return &vmsa.Items[i]
+	return &vmsa.items[i]
 }
 
 func (vmsa *VerificationMethodSetArray) Size() int {
-	return len(vmsa.Items)
+	return len(vmsa.items)
 }
 
 type ServiceSetArray struct {
