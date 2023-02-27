@@ -6,7 +6,7 @@
 #ifndef __Ssi_H__
 #define __Ssi_H__
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #include "ref.h"
 #include "Universe.objc.h"
 
@@ -111,8 +111,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field ServiceSetArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.Service
-
 // skipped method ServiceSetArray.Add with unsupported parameter or return types
 
 // skipped method ServiceSetArray.Get with unsupported parameter or return types
@@ -120,19 +118,13 @@
 - (long)size;
 @end
 
-/**
- * TODO solve this with generics
- */
 @interface SsiStringArray : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field StringArray.Items with unsupported type: []string
-
-// skipped method StringArray.Add with unsupported parameter or return types
-
+- (SsiStringArray* _Nullable)add:(NSString* _Nullable)s;
 - (NSString* _Nonnull)get:(long)i;
 - (long)size;
 @end
@@ -143,8 +135,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field VerificationMethodArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.VerificationMethod
-
 // skipped method VerificationMethodArray.Add with unsupported parameter or return types
 
 // skipped method VerificationMethodArray.Get with unsupported parameter or return types
@@ -158,8 +148,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field VerificationMethodSetArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.VerificationMethodSet
-
 // skipped method VerificationMethodSetArray.Add with unsupported parameter or return types
 
 // skipped method VerificationMethodSetArray.Get with unsupported parameter or return types

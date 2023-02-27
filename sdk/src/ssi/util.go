@@ -11,73 +11,72 @@ type StringCollection interface {
 	Size() int
 }
 
-// TODO solve this with generics
 type StringArray struct {
-	Items []string
+	items []string
 }
 
-func (sa StringArray) Add(s string) StringArray {
-	sa.Items = append(sa.Items, s)
+func (sa *StringArray) Add(s string) *StringArray {
+	sa.items = append(sa.items, s)
 	return sa
 }
 
-func (sa StringArray) Get(i int) string {
-	return sa.Items[i]
+func (sa *StringArray) Get(i int) string {
+	return sa.items[i]
 }
 
-func (sa StringArray) Size() int {
-	return len(sa.Items)
+func (sa *StringArray) Size() int {
+	return len(sa.items)
 }
 
 type VerificationMethodArray struct {
-	Items []did.VerificationMethod
+	items []did.VerificationMethod
 }
 
-func (vma VerificationMethodArray) Add(item *did.VerificationMethod) VerificationMethodArray {
-	vma.Items = append(vma.Items, *item)
+func (vma *VerificationMethodArray) Add(item *did.VerificationMethod) *VerificationMethodArray {
+	vma.items = append(vma.items, *item)
 	return vma
 }
 
-func (vma VerificationMethodArray) Get(i int) *did.VerificationMethod {
-	return &vma.Items[i]
+func (vma *VerificationMethodArray) Get(i int) *did.VerificationMethod {
+	return &vma.items[i]
 }
 
-func (vma VerificationMethodArray) Size() int {
-	return len(vma.Items)
+func (vma *VerificationMethodArray) Size() int {
+	return len(vma.items)
 }
 
 type VerificationMethodSetArray struct {
-	Items []did.VerificationMethodSet
+	items []did.VerificationMethodSet
 }
 
-func (vmsa VerificationMethodSetArray) Add(item *did.VerificationMethodSet) VerificationMethodSetArray {
-	vmsa.Items = append(vmsa.Items, *item)
+func (vmsa *VerificationMethodSetArray) Add(item *did.VerificationMethodSet) *VerificationMethodSetArray {
+	vmsa.items = append(vmsa.items, *item)
 	return vmsa
 }
 
-func (vmsa VerificationMethodSetArray) Get(i int) *did.VerificationMethodSet {
-	return &vmsa.Items[i]
+func (vmsa *VerificationMethodSetArray) Get(i int) *did.VerificationMethodSet {
+	return &vmsa.items[i]
 }
 
-func (vmsa VerificationMethodSetArray) Size() int {
-	return len(vmsa.Items)
+func (vmsa *VerificationMethodSetArray) Size() int {
+	return len(vmsa.items)
 }
 
 type ServiceSetArray struct {
-	Items []did.Service
+	items []did.Service
 }
 
-func (ssa ServiceSetArray) Add(item *did.Service) ServiceSetArray {
-	ssa.Items = append(ssa.Items, *item)
+func (ssa *ServiceSetArray) Add(item *did.Service) *ServiceSetArray {
+	ssa.items = append(ssa.items, *item)
 	return ssa
 }
 
-func (ssa ServiceSetArray) Get(i int) *did.Service {
-	return &ssa.Items[i]
+func (ssa *ServiceSetArray) Get(i int) *did.Service {
+	return &ssa.items[i]
 }
 
-func (ssa ServiceSetArray) Size() int {
-	return len(ssa.Items)
+func (ssa *ServiceSetArray) Size() int {
+	return len(ssa.items)
 }
 
 func keyTypeToString(kt ssi.KeyType) string {
