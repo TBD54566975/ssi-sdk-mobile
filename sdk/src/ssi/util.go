@@ -32,16 +32,16 @@ type VerificationMethodArray struct {
 	items []did.VerificationMethod
 }
 
-func (vma VerificationMethodArray) Add(item *did.VerificationMethod) VerificationMethodArray {
+func (vma *VerificationMethodArray) Add(item *did.VerificationMethod) *VerificationMethodArray {
 	vma.items = append(vma.items, *item)
 	return vma
 }
 
-func (vma VerificationMethodArray) Get(i int) *did.VerificationMethod {
+func (vma *VerificationMethodArray) Get(i int) *did.VerificationMethod {
 	return &vma.items[i]
 }
 
-func (vma VerificationMethodArray) Size() int {
+func (vma *VerificationMethodArray) Size() int {
 	return len(vma.items)
 }
 
@@ -49,16 +49,16 @@ type VerificationMethodSetArray struct {
 	Items []did.VerificationMethodSet
 }
 
-func (vmsa VerificationMethodSetArray) Add(item *did.VerificationMethodSet) VerificationMethodSetArray {
+func (vmsa *VerificationMethodSetArray) Add(item *did.VerificationMethodSet) *VerificationMethodSetArray {
 	vmsa.Items = append(vmsa.Items, *item)
 	return vmsa
 }
 
-func (vmsa VerificationMethodSetArray) Get(i int) *did.VerificationMethodSet {
+func (vmsa *VerificationMethodSetArray) Get(i int) *did.VerificationMethodSet {
 	return &vmsa.Items[i]
 }
 
-func (vmsa VerificationMethodSetArray) Size() int {
+func (vmsa *VerificationMethodSetArray) Size() int {
 	return len(vmsa.Items)
 }
 
@@ -66,16 +66,16 @@ type ServiceSetArray struct {
 	items []did.Service
 }
 
-func (ssa ServiceSetArray) Add(item *did.Service) ServiceSetArray {
+func (ssa *ServiceSetArray) Add(item *did.Service) *ServiceSetArray {
 	ssa.items = append(ssa.items, *item)
 	return ssa
 }
 
-func (ssa ServiceSetArray) Get(i int) *did.Service {
+func (ssa *ServiceSetArray) Get(i int) *did.Service {
 	return &ssa.items[i]
 }
 
-func (ssa ServiceSetArray) Size() int {
+func (ssa *ServiceSetArray) Size() int {
 	return len(ssa.items)
 }
 

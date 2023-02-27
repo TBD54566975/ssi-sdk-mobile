@@ -111,8 +111,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field ServiceSetArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.Service
-
 // skipped method ServiceSetArray.Add with unsupported parameter or return types
 
 // skipped method ServiceSetArray.Get with unsupported parameter or return types
@@ -120,17 +118,12 @@
 - (long)size;
 @end
 
-/**
- * TODO solve this with generics
- */
 @interface SsiStringArray : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field StringArray.Items with unsupported type: []string
-
 // skipped method StringArray.Add with unsupported parameter or return types
 
 - (NSString* _Nonnull)get:(long)i;
@@ -143,8 +136,6 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field VerificationMethodArray.Items with unsupported type: []github.com/TBD54566975/ssi-sdk/did.VerificationMethod
-
 // skipped method VerificationMethodArray.Add with unsupported parameter or return types
 
 // skipped method VerificationMethodArray.Get with unsupported parameter or return types
