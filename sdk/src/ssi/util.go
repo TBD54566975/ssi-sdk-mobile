@@ -15,16 +15,16 @@ type StringArray struct {
 	items []string
 }
 
-func (sa StringArray) Add(s string) StringArray {
+func (sa *StringArray) Add(s string) *StringArray {
 	sa.items = append(sa.items, s)
 	return sa
 }
 
-func (sa StringArray) Get(i int) string {
+func (sa *StringArray) Get(i int) string {
 	return sa.items[i]
 }
 
-func (sa StringArray) Size() int {
+func (sa *StringArray) Size() int {
 	return len(sa.items)
 }
 

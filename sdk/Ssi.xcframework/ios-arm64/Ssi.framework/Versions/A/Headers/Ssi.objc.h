@@ -124,8 +124,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped method StringArray.Add with unsupported parameter or return types
-
+- (SsiStringArray* _Nullable)add:(NSString* _Nullable)s;
 - (NSString* _Nonnull)get:(long)i;
 - (long)size;
 @end
