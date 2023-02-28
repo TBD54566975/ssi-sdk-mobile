@@ -2,6 +2,8 @@ package ssi
 
 import (
 	"github.com/TBD54566975/ssi-sdk/credential"
+	"github.com/TBD54566975/ssi-sdk/crypto"
+	"github.com/goccy/go-json"
 )
 
 type DIDDocumentMobile struct {
@@ -25,18 +27,18 @@ type VerifiableCredentialMobile struct {
 
 	// Mika: Problem type
 	// Either a string or an object
-	// Issuer         interface{} `json:"issuer" validate:"required"`
+	Issuer []byte `json:"issuer" validate:"required"`
 
 	IssuanceDate   string `json:"issuanceDate" validate:"required"`
 	ExpirationDate string `json:"expirationDate,omitempty"`
 
 	// Mika: Problem type
 	// Requires id and type, but anything else is fair game
-	// CredentialStatus  interface{}       `json:"credentialStatus,omitempty" validate:"omitempty,dive"`
+	CredentialStatus []byte `json:"credentialStatus,omitempty" validate:"omitempty,dive"`
 
 	// Mika: Problem type
 	// type is: map[string]interface{}
-	// CredentialSubject CredentialSubject            `json:"credentialSubject" validate:"required"`
+	CredentialSubject []byte `json:"credentialSubject" validate:"required"`
 
 	// Mika: Problem type
 	// These don't work, even though the structs only contain supported types
@@ -44,13 +46,67 @@ type VerifiableCredentialMobile struct {
 	RefreshService   *credential.RefreshService   `json:"refreshService,omitempty" validate:"omitempty,dive"`
 
 	// Mika: Problem type
-	// TermsOfUse       []TermsOfUse                 `json:"termsOfUse,omitempty" validate:"omitempty,dive"`
+	TermsOfUse []byte `json:"termsOfUse,omitempty" validate:"omitempty,dive"`
 
 	// Mika: Problem type
-	// Evidence         []interface{}                `json:"evidence,omitempty" validate:"omitempty,dive"`
+	Evidence []byte `json:"evidence,omitempty" validate:"omitempty,dive"`
 
 	// Mika: Problem type
-	// Proof            *crypto.Proof                `json:"proof,omitempty"`
+	Proof []byte `json:"proof,omitempty"`
+}
+
+func (v *VerifiableCredentialMobile) ToGoRepresentation() *credential.VerifiableCredential {
+	var issuer any
+	if issuerBytes, err := json.Marshal(v.Issuer); err != nil {
+		if err = json.Unmarshal(issuerBytes, &issuer); err != nil {
+			return nil
+		}
+	}
+	var credentialStatus any
+	if credentialStatusBytes, err := json.Marshal(v.CredentialStatus); err != nil {
+		if err = json.Unmarshal(credentialStatusBytes, &credentialStatus); err != nil {
+			return nil
+		}
+	}
+	var credentialSubject credential.CredentialSubject
+	if credentialSubjectBytes, err := json.Marshal(v.CredentialSubject); err != nil {
+		if err = json.Unmarshal(credentialSubjectBytes, &credentialSubject); err != nil {
+			return nil
+		}
+	}
+	var termsOfUse []credential.TermsOfUse
+	if termsOfUseBytes, err := json.Marshal(v.TermsOfUse); err != nil {
+		if err = json.Unmarshal(termsOfUseBytes, &termsOfUse); err != nil {
+			return nil
+		}
+	}
+	var evidence []interface{}
+	if evidenceBytes, err := json.Marshal(v.Evidence); err != nil {
+		if err = json.Unmarshal(evidenceBytes, &evidence); err != nil {
+			return nil
+		}
+	}
+	var proof crypto.Proof
+	if proofBytes, err := json.Marshal(v.Proof); err != nil {
+		if err = json.Unmarshal(proofBytes, &proof); err != nil {
+			return nil
+		}
+	}
+	return &credential.VerifiableCredential{
+		Context:           v.Context.toGoRepresentation(),
+		ID:                v.ID,
+		Type:              v.Type.toGoRepresentation(),
+		Issuer:            issuer,
+		IssuanceDate:      v.IssuanceDate,
+		ExpirationDate:    v.ExpirationDate,
+		CredentialStatus:  credentialStatus,
+		CredentialSubject: credentialSubject,
+		CredentialSchema:  v.CredentialSchema,
+		RefreshService:    v.RefreshService,
+		TermsOfUse:        termsOfUse,
+		Evidence:          evidence,
+		Proof:             &proof,
+	}
 }
 
 // Mika: Can I avoid needing to re-declare these structs?
