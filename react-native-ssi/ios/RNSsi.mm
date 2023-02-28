@@ -26,7 +26,8 @@ RCT_REMAP_METHOD(createVerifiableCredential,
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
     SsiVerifiableCredentialMobile *verifiableCredential = [[SsiVerifiableCredentialMobile alloc] init];
-
+    NSError *error = [[NSError alloc] init];
+    
     verifiableCredential.context = [json objectForKey:@"context"];
     verifiableCredential.id_ = [json objectForKey:@"id_"];
     verifiableCredential.type = [json objectForKey:@"type"];
@@ -35,6 +36,7 @@ RCT_REMAP_METHOD(createVerifiableCredential,
     verifiableCredential.expirationDate = [json objectForKey:@"expirationDate"];
     verifiableCredential.credentialStatus = [json objectForKey:@"credentialStatus"];
     verifiableCredential.credentialSubject = [json objectForKey:@"credentialSubject"];
+    [verifiableCredential createVerifiableCredential:&error];
     
     // missing?
     // verifiableCredential.credentialSchema = [json objectForKey:@"credentialSchema"];
@@ -43,9 +45,6 @@ RCT_REMAP_METHOD(createVerifiableCredential,
     verifiableCredential.termsOfUse = [json objectForKey:@"termsOfUse"];
     verifiableCredential.evidence = [json objectForKey:@"evidence"];
     verifiableCredential.proof = [json objectForKey:@"evidence"];
-    
-    // broken, not exported due to bug
-    // verifiableCredential.toGoRepresentation
 }
 
 RCT_REMAP_METHOD(createDidKey,
