@@ -11,12 +11,14 @@
 #include "Universe.objc.h"
 
 
+@class SsiCredentialSchema;
 @class SsiCryptoKeyPair;
 @class SsiDIDDocumentMobile;
 @class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
 @class SsiECDSAKeyPair;
 @class SsiRSAKeyPair;
+@class SsiRefreshService;
 @class SsiServiceSetArray;
 @class SsiStringArray;
 @class SsiStringOrArray;
@@ -41,6 +43,16 @@
 - (BOOL)isString;
 - (NSString* _Nonnull)set:(NSString* _Nullable)s;
 - (long)size;
+@end
+
+@interface SsiCredentialSchema : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull id_;
+@property (nonatomic) NSString* _Nonnull type;
 @end
 
 @interface SsiCryptoKeyPair : NSObject <goSeqRefInterface> {
@@ -118,6 +130,16 @@
 
 @end
 
+@interface SsiRefreshService : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull id_;
+@property (nonatomic) NSString* _Nonnull type;
+@end
+
 @interface SsiServiceSetArray : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -182,9 +204,9 @@ Requires id and type, but anything else is fair game
 type is: map[string]interface{}
  */
 @property (nonatomic) NSData* _Nullable credentialSubject;
-// skipped field VerifiableCredentialMobile.CredentialSchema with unsupported type: *github.com/TBD54566975/ssi-sdk/credential.CredentialSchema
+// skipped field VerifiableCredentialMobile.CredentialSchema with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.CredentialSchema
 
-// skipped field VerifiableCredentialMobile.RefreshService with unsupported type: *github.com/TBD54566975/ssi-sdk/credential.RefreshService
+// skipped field VerifiableCredentialMobile.RefreshService with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.RefreshService
 
 /**
  * Mika: Problem type

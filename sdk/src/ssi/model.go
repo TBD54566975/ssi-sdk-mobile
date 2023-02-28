@@ -42,8 +42,8 @@ type VerifiableCredentialMobile struct {
 
 	// Mika: Problem type
 	// These don't work, even though the structs only contain supported types
-	CredentialSchema *credential.CredentialSchema `json:"credentialSchema,omitempty" validate:"omitempty,dive"`
-	RefreshService   *credential.RefreshService   `json:"refreshService,omitempty" validate:"omitempty,dive"`
+	CredentialSchema CredentialSchema `json:"credentialSchema,omitempty" validate:"omitempty,dive"`
+	RefreshService   RefreshService   `json:"refreshService,omitempty" validate:"omitempty,dive"`
 
 	// Mika: Problem type
 	TermsOfUse []byte `json:"termsOfUse,omitempty" validate:"omitempty,dive"`
@@ -101,21 +101,34 @@ func (v *VerifiableCredentialMobile) ToGoRepresentation() *credential.Verifiable
 		ExpirationDate:    v.ExpirationDate,
 		CredentialStatus:  credentialStatus,
 		CredentialSubject: credentialSubject,
-		CredentialSchema:  v.CredentialSchema,
-		RefreshService:    v.RefreshService,
+		CredentialSchema:  v.CredentialSchema.toGoRepresentation(),
+		RefreshService:    v.RefreshService.toGoRepresentation(),
 		TermsOfUse:        termsOfUse,
 		Evidence:          evidence,
 		Proof:             &proof,
 	}
 }
 
-// Mika: Can I avoid needing to re-declare these structs?
-// type CredentialSchema struct {
-// 	ID   string `json:"id" validate:"required"`
-// 	Type string `json:"type" validate:"required"`
-// }
-//
-// type RefreshService struct {
-// 	ID   string `json:"id" validate:"required"`
-// 	Type string `json:"type" validate:"required"`
-// }
+type CredentialSchema struct {
+	ID   string `json:"id" validate:"required"`
+	Type string `json:"type" validate:"required"`
+}
+
+func (c *CredentialSchema) toGoRepresentation() *credential.CredentialSchema {
+	return &credential.CredentialSchema{
+		ID:   c.ID,
+		Type: c.Type,
+	}
+}
+
+type RefreshService struct {
+	ID   string `json:"id" validate:"required"`
+	Type string `json:"type" validate:"required"`
+}
+
+func (r RefreshService) toGoRepresentation() *credential.RefreshService {
+	return &credential.RefreshService{
+		ID:   r.ID,
+		Type: r.Type,
+	}
+}
