@@ -21,38 +21,19 @@ type DIDDocumentMobile struct {
 }
 
 type VerifiableCredentialMobile struct {
-	Context *StringArray `json:"@context" validate:"required"`
-	ID      string       `json:"id,omitempty"`
-	Type    *StringArray `json:"type" validate:"required"`
-
-	// Mika: Problem type
-	// Either a string or an object
-	Issuer []byte `json:"issuer" validate:"required"`
-
-	IssuanceDate   string `json:"issuanceDate" validate:"required"`
-	ExpirationDate string `json:"expirationDate,omitempty"`
-
-	// Mika: Problem type
-	// Requires id and type, but anything else is fair game
-	CredentialStatus []byte `json:"credentialStatus,omitempty" validate:"omitempty,dive"`
-
-	// Mika: Problem type
-	// type is: map[string]interface{}
-	CredentialSubject []byte `json:"credentialSubject" validate:"required"`
-
-	// Mika: Problem type
-	// These don't work, even though the structs only contain supported types
-	CredentialSchema CredentialSchema `json:"credentialSchema,omitempty" validate:"omitempty,dive"`
-	RefreshService   RefreshService   `json:"refreshService,omitempty" validate:"omitempty,dive"`
-
-	// Mika: Problem type
-	TermsOfUse []byte `json:"termsOfUse,omitempty" validate:"omitempty,dive"`
-
-	// Mika: Problem type
-	Evidence []byte `json:"evidence,omitempty" validate:"omitempty,dive"`
-
-	// Mika: Problem type
-	Proof []byte `json:"proof,omitempty"`
+	Context           *StringArray     `json:"@context" validate:"required"`
+	ID                string           `json:"id,omitempty"`
+	Type              *StringArray     `json:"type" validate:"required"`
+	Issuer            []byte           `json:"issuer" validate:"required"`
+	IssuanceDate      string           `json:"issuanceDate" validate:"required"`
+	ExpirationDate    string           `json:"expirationDate,omitempty"`
+	CredentialStatus  []byte           `json:"credentialStatus,omitempty" validate:"omitempty,dive"`
+	CredentialSubject []byte           `json:"credentialSubject" validate:"required"`
+	CredentialSchema  CredentialSchema `json:"credentialSchema,omitempty" validate:"omitempty,dive"`
+	RefreshService    RefreshService   `json:"refreshService,omitempty" validate:"omitempty,dive"`
+	TermsOfUse        []byte           `json:"termsOfUse,omitempty" validate:"omitempty,dive"`
+	Evidence          []byte           `json:"evidence,omitempty" validate:"omitempty,dive"`
+	Proof             []byte           `json:"proof,omitempty"`
 }
 
 func (v *VerifiableCredentialMobile) ToGoRepresentation() *credential.VerifiableCredential {
