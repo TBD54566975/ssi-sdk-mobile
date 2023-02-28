@@ -5,6 +5,54 @@ import (
 	"github.com/TBD54566975/ssi-sdk/did"
 )
 
+type StringOrArrayCollection interface {
+	Add(s string) *StringOrArray
+	Set(s string) string
+	Get() string
+	GetIndex(i int) string
+	Size() int
+	IsString() bool
+}
+
+var _ StringOrArrayCollection = new(StringOrArray)
+
+type StringOrArray struct {
+	item  string
+	items []string
+}
+
+func (sa *StringOrArray) Set(s string) string {
+	sa.item = s
+	return sa.item
+}
+
+func (sa *StringOrArray) Add(s string) *StringOrArray {
+	if sa.item != "" {
+		return nil
+	}
+	sa.items = append(sa.items, s)
+	return sa
+}
+
+func (sa *StringOrArray) Get() string {
+	return sa.item
+}
+
+func (sa *StringOrArray) GetIndex(i int) string {
+	if sa.item != "" {
+		return ""
+	}
+	return sa.items[i]
+}
+
+func (sa *StringOrArray) Size() int {
+	return len(sa.items)
+}
+
+func (sa *StringOrArray) IsString() bool {
+	return sa.items == nil && sa.item != ""
+}
+
 type StringCollection interface {
 	Add(s string) StringCollection
 	Get(i int) string
@@ -26,6 +74,10 @@ func (sa *StringArray) Get(i int) string {
 
 func (sa *StringArray) Size() int {
 	return len(sa.items)
+}
+
+func (sa *StringArray) toGoRepresentation() []string {
+	return sa.items
 }
 
 type VerificationMethodArray struct {
