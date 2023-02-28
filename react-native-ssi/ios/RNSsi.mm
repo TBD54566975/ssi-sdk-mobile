@@ -36,7 +36,6 @@ RCT_REMAP_METHOD(createVerifiableCredential,
     verifiableCredential.expirationDate = [json objectForKey:@"expirationDate"];
     verifiableCredential.credentialStatus = [json objectForKey:@"credentialStatus"];
     verifiableCredential.credentialSubject = [json objectForKey:@"credentialSubject"];
-    [verifiableCredential createVerifiableCredential:&error];
     
     // missing?
     // verifiableCredential.credentialSchema = [json objectForKey:@"credentialSchema"];
@@ -45,6 +44,8 @@ RCT_REMAP_METHOD(createVerifiableCredential,
     verifiableCredential.termsOfUse = [json objectForKey:@"termsOfUse"];
     verifiableCredential.evidence = [json objectForKey:@"evidence"];
     verifiableCredential.proof = [json objectForKey:@"evidence"];
+    
+    BOOL isSuccess = [verifiableCredential createVerifiableCredential:&error];
 }
 
 RCT_REMAP_METHOD(createDidKey,
