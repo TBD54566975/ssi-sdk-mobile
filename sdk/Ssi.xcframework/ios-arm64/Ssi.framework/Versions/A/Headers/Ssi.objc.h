@@ -220,8 +220,7 @@ type is: map[string]interface{}
  * Mika: Problem type
  */
 @property (nonatomic) NSData* _Nullable proof;
-// skipped method VerifiableCredentialMobile.ToGoRepresentation with unsupported parameter or return types
-
+- (BOOL)createVerifiableCredential:(NSError* _Nullable* _Nullable)error;
 @end
 
 @interface SsiVerificationMethodArray : NSObject <goSeqRefInterface> {

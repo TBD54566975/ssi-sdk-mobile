@@ -76,7 +76,7 @@ func (sa *StringArray) Size() int {
 	return len(sa.items)
 }
 
-func (sa *StringArray) toGoRepresentation() []string {
+func (sa *StringArray) fromJSON() []string {
 	return sa.items
 }
 

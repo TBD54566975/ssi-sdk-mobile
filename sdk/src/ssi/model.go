@@ -55,58 +55,61 @@ type VerifiableCredentialMobile struct {
 	Proof []byte `json:"proof,omitempty"`
 }
 
-func (v *VerifiableCredentialMobile) ToGoRepresentation() *credential.VerifiableCredential {
+func (v *VerifiableCredentialMobile) CreateVerifiableCredential() error {
 	var issuer any
 	if issuerBytes, err := json.Marshal(v.Issuer); err != nil {
 		if err = json.Unmarshal(issuerBytes, &issuer); err != nil {
-			return nil
+			return err
 		}
 	}
 	var credentialStatus any
 	if credentialStatusBytes, err := json.Marshal(v.CredentialStatus); err != nil {
 		if err = json.Unmarshal(credentialStatusBytes, &credentialStatus); err != nil {
-			return nil
+			return err
 		}
 	}
 	var credentialSubject credential.CredentialSubject
 	if credentialSubjectBytes, err := json.Marshal(v.CredentialSubject); err != nil {
 		if err = json.Unmarshal(credentialSubjectBytes, &credentialSubject); err != nil {
-			return nil
+			return err
 		}
 	}
 	var termsOfUse []credential.TermsOfUse
 	if termsOfUseBytes, err := json.Marshal(v.TermsOfUse); err != nil {
 		if err = json.Unmarshal(termsOfUseBytes, &termsOfUse); err != nil {
-			return nil
+			return err
 		}
 	}
 	var evidence []interface{}
 	if evidenceBytes, err := json.Marshal(v.Evidence); err != nil {
 		if err = json.Unmarshal(evidenceBytes, &evidence); err != nil {
-			return nil
+			return err
 		}
 	}
 	var proof crypto.Proof
 	if proofBytes, err := json.Marshal(v.Proof); err != nil {
 		if err = json.Unmarshal(proofBytes, &proof); err != nil {
-			return nil
+			return err
 		}
 	}
-	return &credential.VerifiableCredential{
-		Context:           v.Context.toGoRepresentation(),
+
+	cred := &credential.VerifiableCredential{
+		Context:           v.Context.fromJSON(),
 		ID:                v.ID,
-		Type:              v.Type.toGoRepresentation(),
+		Type:              v.Type.fromJSON(),
 		Issuer:            issuer,
 		IssuanceDate:      v.IssuanceDate,
 		ExpirationDate:    v.ExpirationDate,
 		CredentialStatus:  credentialStatus,
 		CredentialSubject: credentialSubject,
-		CredentialSchema:  v.CredentialSchema.toGoRepresentation(),
-		RefreshService:    v.RefreshService.toGoRepresentation(),
+		CredentialSchema:  v.CredentialSchema.fromJSON(),
+		RefreshService:    v.RefreshService.fromJSON(),
 		TermsOfUse:        termsOfUse,
 		Evidence:          evidence,
 		Proof:             &proof,
 	}
+
+	return cred.IsValid()
 }
 
 type CredentialSchema struct {
@@ -114,7 +117,7 @@ type CredentialSchema struct {
 	Type string `json:"type" validate:"required"`
 }
 
-func (c *CredentialSchema) toGoRepresentation() *credential.CredentialSchema {
+func (c *CredentialSchema) fromJSON() *credential.CredentialSchema {
 	return &credential.CredentialSchema{
 		ID:   c.ID,
 		Type: c.Type,
@@ -126,7 +129,7 @@ type RefreshService struct {
 	Type string `json:"type" validate:"required"`
 }
 
-func (r RefreshService) toGoRepresentation() *credential.RefreshService {
+func (r RefreshService) fromJSON() *credential.RefreshService {
 	return &credential.RefreshService{
 		ID:   r.ID,
 		Type: r.Type,
