@@ -19,6 +19,35 @@ RCT_REMAP_METHOD(generateDidKey,
     }
 }
 
+// wip
+RCT_REMAP_METHOD(createVerifiableCredential,
+                 fromJSON:(NSDictionary*)json
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    SsiVerifiableCredentialMobile *verifiableCredential = [[SsiVerifiableCredentialMobile alloc] init];
+
+    verifiableCredential.context = [json objectForKey:@"context"];
+    verifiableCredential.id_ = [json objectForKey:@"id_"];
+    verifiableCredential.type = [json objectForKey:@"type"];
+    verifiableCredential.issuer = [json objectForKey:@"issuer"];
+    verifiableCredential.issuanceDate = [json objectForKey:@"issuanceDate"];
+    verifiableCredential.expirationDate = [json objectForKey:@"expirationDate"];
+    verifiableCredential.credentialStatus = [json objectForKey:@"credentialStatus"];
+    verifiableCredential.credentialSubject = [json objectForKey:@"credentialSubject"];
+    
+    // missing?
+    // verifiableCredential.credentialSchema = [json objectForKey:@"credentialSchema"];
+    // verifiableCredential.refreshService = [json objectForKey:@"refreshService"];
+    
+    verifiableCredential.termsOfUse = [json objectForKey:@"termsOfUse"];
+    verifiableCredential.evidence = [json objectForKey:@"evidence"];
+    verifiableCredential.proof = [json objectForKey:@"evidence"];
+    
+    // broken, not exported due to bug
+    // verifiableCredential.toGoRepresentation
+}
+
 RCT_REMAP_METHOD(createDidKey,
                  ofType:(NSString*)keyType
                  withPublicKey:(NSData*)publicKey
