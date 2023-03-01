@@ -11,47 +11,14 @@
 #include "Universe.objc.h"
 
 
-@class SsiCredentialSchema;
 @class SsiCryptoKeyPair;
 @class SsiDIDDocumentMobile;
 @class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
-@class SsiRefreshService;
 @class SsiServiceSetArray;
 @class SsiStringArray;
-@class SsiStringOrArray;
-@class SsiVerifiableCredentialMobile;
 @class SsiVerificationMethodArray;
 @class SsiVerificationMethodSetArray;
-@protocol SsiStringCollection;
-@class SsiStringCollection;
-@protocol SsiStringOrArrayCollection;
-@class SsiStringOrArrayCollection;
-
-@protocol SsiStringCollection <NSObject>
-- (id<SsiStringCollection> _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get:(long)i;
-- (long)size;
-@end
-
-@protocol SsiStringOrArrayCollection <NSObject>
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
-
-@interface SsiCredentialSchema : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull type;
-@end
 
 @interface SsiCryptoKeyPair : NSObject <goSeqRefInterface> {
 }
@@ -103,16 +70,6 @@
 @property (nonatomic) NSString* _Nonnull keyType;
 @end
 
-@interface SsiRefreshService : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull type;
-@end
-
 @interface SsiServiceSetArray : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -135,45 +92,6 @@
 - (SsiStringArray* _Nullable)add:(NSString* _Nullable)s;
 - (NSString* _Nonnull)get:(long)i;
 - (long)size;
-@end
-
-@interface SsiStringOrArray : NSObject <goSeqRefInterface, SsiStringOrArrayCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
-
-@interface SsiVerifiableCredentialMobile : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) SsiStringArray* _Nullable context;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) SsiStringArray* _Nullable type;
-@property (nonatomic) NSData* _Nullable issuer;
-@property (nonatomic) NSString* _Nonnull issuanceDate;
-@property (nonatomic) NSString* _Nonnull expirationDate;
-@property (nonatomic) NSData* _Nullable credentialStatus;
-@property (nonatomic) NSData* _Nullable credentialSubject;
-// skipped field VerifiableCredentialMobile.CredentialSchema with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.CredentialSchema
-
-// skipped field VerifiableCredentialMobile.RefreshService with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.RefreshService
-
-@property (nonatomic) NSData* _Nullable termsOfUse;
-@property (nonatomic) NSData* _Nullable evidence;
-@property (nonatomic) NSData* _Nullable proof;
-// skipped method VerifiableCredentialMobile.ToGoRepresentation with unsupported parameter or return types
-
 @end
 
 @interface SsiVerificationMethodArray : NSObject <goSeqRefInterface> {
@@ -268,32 +186,5 @@ The keyID and KeyType are used to reconstruct a go-friendly public key to be use
 the JWT. The JWT is then decoded and verified, and the result is returned as a boolean.
  */
 FOUNDATION_EXPORT BOOL SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable publicKey, NSString* _Nullable jwt);
-
-@class SsiStringCollection;
-
-@class SsiStringOrArrayCollection;
-
-@interface SsiStringCollection : NSObject <goSeqRefInterface, SsiStringCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (id<SsiStringCollection> _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get:(long)i;
-- (long)size;
-@end
-
-@interface SsiStringOrArrayCollection : NSObject <goSeqRefInterface, SsiStringOrArrayCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
 
 #endif
