@@ -254,9 +254,20 @@ FOUNDATION_EXPORT BOOL SsiIsSupportedKeyType(NSString* _Nullable kt);
 
 FOUNDATION_EXPORT BOOL SsiIsSupportedSignatureAlg(NSString* _Nullable sa);
 
-FOUNDATION_EXPORT NSData* _Nullable SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable privateKey, NSData* _Nullable vcJSONBytes);
+/**
+ * SignVerifiableCredentialJWT takes in a key ID, key type, private key, and a verifiable credential
+The keyID and KeyType are used to reconstruct a go-friendly private key to be used for signing
+the credential, which will be packaged as a JWT according to the VC-JWT 1.0 specification.
+The resulting is returned as a string representation of a JWT.
+ */
+FOUNDATION_EXPORT NSString* _Nonnull SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable privateKey, NSData* _Nullable vcJSONBytes);
 
-FOUNDATION_EXPORT BOOL SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable publicKey, NSData* _Nullable jwtBytes);
+/**
+ * VerifyVerifiableCredentialJWT takes in a key ID, key type, public key, and a JWT string
+The keyID and KeyType are used to reconstruct a go-friendly public key to be used for verifying
+the JWT. The JWT is then decoded and verified, and the result is returned as a boolean.
+ */
+FOUNDATION_EXPORT BOOL SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable publicKey, NSString* _Nullable jwt);
 
 @class SsiStringCollection;
 

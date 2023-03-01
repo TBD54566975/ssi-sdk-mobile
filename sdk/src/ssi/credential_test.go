@@ -22,11 +22,11 @@ func TestSignAndVerifyVCJWT(t *testing.T) {
 	assert.NotEmpty(t, vcBytes)
 
 	// sign it
-	vcJWTBytes := SignVerifiableCredentialJWT("test-key-id", keyPair.KeyType, keyPair.PrivKey, vcBytes)
-	assert.NotEmpty(t, vcJWTBytes)
+	vcJWT := SignVerifiableCredentialJWT("test-key-id", keyPair.KeyType, keyPair.PrivKey, vcBytes)
+	assert.NotEmpty(t, vcJWT)
 
 	// verify it
-	valid := VerifyVerifiableCredentialJWT("test-key-id", keyPair.KeyType, keyPair.PubKey, vcJWTBytes)
+	valid := VerifyVerifiableCredentialJWT("test-key-id", keyPair.KeyType, keyPair.PubKey, vcJWT)
 	assert.True(t, valid)
 }
 
