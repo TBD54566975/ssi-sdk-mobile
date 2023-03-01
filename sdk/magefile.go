@@ -233,7 +233,10 @@ func IOS() error {
 
 	fmt.Println("Building iOS...")
 	bindIOS := sh.RunCmd(gomobile, "bind", "-target", "ios", "-tags", "jwx_es256k")
-	return bindIOS("./src/ssi")
+	error := bindIOS("./src/ssi")
+	sh.Run("./fix_ios_imports.sh")
+
+	return error
 }
 
 // Android Generates the Android packages
