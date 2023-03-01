@@ -6,54 +6,19 @@
 #ifndef __Ssi_H__
 #define __Ssi_H__
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #include "ref.h"
 #include "Universe.objc.h"
 
 
-@class SsiCredentialSchema;
 @class SsiCryptoKeyPair;
 @class SsiDIDDocumentMobile;
 @class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
-@class SsiECDSAKeyPair;
-@class SsiRSAKeyPair;
-@class SsiRefreshService;
 @class SsiServiceSetArray;
 @class SsiStringArray;
-@class SsiStringOrArray;
-@class SsiVerifiableCredentialMobile;
 @class SsiVerificationMethodArray;
 @class SsiVerificationMethodSetArray;
-@protocol SsiStringCollection;
-@class SsiStringCollection;
-@protocol SsiStringOrArrayCollection;
-@class SsiStringOrArrayCollection;
-
-@protocol SsiStringCollection <NSObject>
-- (id<SsiStringCollection> _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get:(long)i;
-- (long)size;
-@end
-
-@protocol SsiStringOrArrayCollection <NSObject>
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
-
-@interface SsiCredentialSchema : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull type;
-@end
 
 @interface SsiCryptoKeyPair : NSObject <goSeqRefInterface> {
 }
@@ -61,6 +26,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull keyType;
 @property (nonatomic) NSData* _Nullable privKey;
 @property (nonatomic) NSData* _Nullable pubKey;
 @end
@@ -104,42 +70,6 @@
 @property (nonatomic) NSString* _Nonnull keyType;
 @end
 
-@interface SsiECDSAKeyPair : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t pubKeyX;
-@property (nonatomic) int64_t pubKeyY;
-@property (nonatomic) int64_t privKeyX;
-@property (nonatomic) int64_t privKeyY;
-@property (nonatomic) int64_t privKeyD;
-@end
-
-@interface SsiRSAKeyPair : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t pubKeyN;
-@property (nonatomic) long pubKeyE;
-@property (nonatomic) int64_t privKeyD;
-// skipped field RSAKeyPair.Primes with unsupported type: []int64
-
-@end
-
-@interface SsiRefreshService : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull type;
-@end
-
 @interface SsiServiceSetArray : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -162,66 +92,6 @@
 - (SsiStringArray* _Nullable)add:(NSString* _Nullable)s;
 - (NSString* _Nonnull)get:(long)i;
 - (long)size;
-@end
-
-@interface SsiStringOrArray : NSObject <goSeqRefInterface, SsiStringOrArrayCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
-
-@interface SsiVerifiableCredentialMobile : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) SsiStringArray* _Nullable context;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) SsiStringArray* _Nullable type;
-/**
- * Mika: Problem type
-Either a string or an object
- */
-@property (nonatomic) NSData* _Nullable issuer;
-@property (nonatomic) NSString* _Nonnull issuanceDate;
-@property (nonatomic) NSString* _Nonnull expirationDate;
-/**
- * Mika: Problem type
-Requires id and type, but anything else is fair game
- */
-@property (nonatomic) NSData* _Nullable credentialStatus;
-/**
- * Mika: Problem type
-type is: map[string]interface{}
- */
-@property (nonatomic) NSData* _Nullable credentialSubject;
-// skipped field VerifiableCredentialMobile.CredentialSchema with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.CredentialSchema
-
-// skipped field VerifiableCredentialMobile.RefreshService with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.RefreshService
-
-/**
- * Mika: Problem type
- */
-@property (nonatomic) NSData* _Nullable termsOfUse;
-/**
- * Mika: Problem type
- */
-@property (nonatomic) NSData* _Nullable evidence;
-/**
- * Mika: Problem type
- */
-@property (nonatomic) NSData* _Nullable proof;
-// skipped method VerifiableCredentialMobile.ToGoRepresentation with unsupported parameter or return types
-
 @end
 
 @interface SsiVerificationMethodArray : NSObject <goSeqRefInterface> {
@@ -282,15 +152,15 @@ FOUNDATION_EXPORT SsiDIDKeyWrapper* _Nullable SsiGenerateDIDKey(NSString* _Nulla
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateEd25519Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP256Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP256Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP384Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP384Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP521Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP521Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiRSAKeyPair* _Nullable SsiGenerateRSA2048Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateRSA2048Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateSecp256k1Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateSecp256k1Key(NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateX25519Key(NSError* _Nullable* _Nullable error);
 
@@ -302,31 +172,19 @@ FOUNDATION_EXPORT BOOL SsiIsSupportedKeyType(NSString* _Nullable kt);
 
 FOUNDATION_EXPORT BOOL SsiIsSupportedSignatureAlg(NSString* _Nullable sa);
 
-@class SsiStringCollection;
+/**
+ * SignVerifiableCredentialJWT takes in a key ID, key type, private key, and a verifiable credential
+The keyID and KeyType are used to reconstruct a go-friendly private key to be used for signing
+the credential, which will be packaged as a JWT according to the VC-JWT 1.0 specification.
+The resulting is returned as a string representation of a JWT.
+ */
+FOUNDATION_EXPORT NSString* _Nonnull SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable privateKey, NSData* _Nullable vcJSONBytes);
 
-@class SsiStringOrArrayCollection;
-
-@interface SsiStringCollection : NSObject <goSeqRefInterface, SsiStringCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (id<SsiStringCollection> _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get:(long)i;
-- (long)size;
-@end
-
-@interface SsiStringOrArrayCollection : NSObject <goSeqRefInterface, SsiStringOrArrayCollection> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (SsiStringOrArray* _Nullable)add:(NSString* _Nullable)s;
-- (NSString* _Nonnull)get;
-- (NSString* _Nonnull)getIndex:(long)i;
-- (BOOL)isString;
-- (NSString* _Nonnull)set:(NSString* _Nullable)s;
-- (long)size;
-@end
+/**
+ * VerifyVerifiableCredentialJWT takes in a key ID, key type, public key, and a JWT string
+The keyID and KeyType are used to reconstruct a go-friendly public key to be used for verifying
+the JWT. The JWT is then decoded and verified, and the result is returned as a boolean.
+ */
+FOUNDATION_EXPORT BOOL SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable publicKey, NSString* _Nullable jwt);
 
 #endif
