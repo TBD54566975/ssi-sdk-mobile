@@ -6,7 +6,7 @@
 #ifndef __Ssi_H__
 #define __Ssi_H__
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #include "ref.h"
 #include "Universe.objc.h"
 
@@ -16,8 +16,6 @@
 @class SsiDIDDocumentMobile;
 @class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
-@class SsiECDSAKeyPair;
-@class SsiRSAKeyPair;
 @class SsiRefreshService;
 @class SsiServiceSetArray;
 @class SsiStringArray;
@@ -61,6 +59,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull keyType;
 @property (nonatomic) NSData* _Nullable privKey;
 @property (nonatomic) NSData* _Nullable pubKey;
 @end
@@ -102,32 +101,6 @@
 - (nonnull instancetype)init;
 @property (nonatomic) NSData* _Nullable data;
 @property (nonatomic) NSString* _Nonnull keyType;
-@end
-
-@interface SsiECDSAKeyPair : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t pubKeyX;
-@property (nonatomic) int64_t pubKeyY;
-@property (nonatomic) int64_t privKeyX;
-@property (nonatomic) int64_t privKeyY;
-@property (nonatomic) int64_t privKeyD;
-@end
-
-@interface SsiRSAKeyPair : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t pubKeyN;
-@property (nonatomic) long pubKeyE;
-@property (nonatomic) int64_t privKeyD;
-// skipped field RSAKeyPair.Primes with unsupported type: []int64
-
 @end
 
 @interface SsiRefreshService : NSObject <goSeqRefInterface> {
@@ -187,38 +160,17 @@
 @property (nonatomic) SsiStringArray* _Nullable context;
 @property (nonatomic) NSString* _Nonnull id_;
 @property (nonatomic) SsiStringArray* _Nullable type;
-/**
- * Mika: Problem type
-Either a string or an object
- */
 @property (nonatomic) NSData* _Nullable issuer;
 @property (nonatomic) NSString* _Nonnull issuanceDate;
 @property (nonatomic) NSString* _Nonnull expirationDate;
-/**
- * Mika: Problem type
-Requires id and type, but anything else is fair game
- */
 @property (nonatomic) NSData* _Nullable credentialStatus;
-/**
- * Mika: Problem type
-type is: map[string]interface{}
- */
 @property (nonatomic) NSData* _Nullable credentialSubject;
 // skipped field VerifiableCredentialMobile.CredentialSchema with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.CredentialSchema
 
 // skipped field VerifiableCredentialMobile.RefreshService with unsupported type: github.com/TBD54566975/ssi-sdk-mobile/src/ssi.RefreshService
 
-/**
- * Mika: Problem type
- */
 @property (nonatomic) NSData* _Nullable termsOfUse;
-/**
- * Mika: Problem type
- */
 @property (nonatomic) NSData* _Nullable evidence;
-/**
- * Mika: Problem type
- */
 @property (nonatomic) NSData* _Nullable proof;
 // skipped method VerifiableCredentialMobile.ToGoRepresentation with unsupported parameter or return types
 
@@ -282,15 +234,15 @@ FOUNDATION_EXPORT SsiDIDKeyWrapper* _Nullable SsiGenerateDIDKey(NSString* _Nulla
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateEd25519Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP256Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP256Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP384Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP384Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateP521Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateP521Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiRSAKeyPair* _Nullable SsiGenerateRSA2048Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateRSA2048Key(NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT SsiECDSAKeyPair* _Nullable SsiGenerateSecp256k1Key(NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateSecp256k1Key(NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateX25519Key(NSError* _Nullable* _Nullable error);
 
@@ -301,6 +253,10 @@ FOUNDATION_EXPORT SsiStringArray* _Nullable SsiGetSupportedSignatureAlgs(void);
 FOUNDATION_EXPORT BOOL SsiIsSupportedKeyType(NSString* _Nullable kt);
 
 FOUNDATION_EXPORT BOOL SsiIsSupportedSignatureAlg(NSString* _Nullable sa);
+
+FOUNDATION_EXPORT NSData* _Nullable SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable privateKey, NSData* _Nullable vcJSONBytes);
+
+FOUNDATION_EXPORT BOOL SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSString* _Nullable keyType, NSData* _Nullable publicKey, NSData* _Nullable jwtBytes);
 
 @class SsiStringCollection;
 
