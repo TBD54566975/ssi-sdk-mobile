@@ -6,7 +6,7 @@
 #ifndef __Ssi_H__
 #define __Ssi_H__
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #include "ref.h"
 #include "Universe.objc.h"
 
