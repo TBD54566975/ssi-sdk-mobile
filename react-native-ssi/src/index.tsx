@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { Spec } from './NativeRNSsi';
 
 const LINKING_ERROR =
   `The package 'react-native-ssi' doesn't seem to be linked. Make sure: \n\n` +
@@ -13,7 +14,7 @@ const SsiModule = isTurboModuleEnabled
   ? require('./NativeRNSsi').default
   : NativeModules.RNSsi;
 
-const Ssi = SsiModule
+const Ssi: Spec = SsiModule
   ? SsiModule
   : new Proxy(
       {},
@@ -33,10 +34,7 @@ type KeyType =
   | 'P-256'
   | 'P-384'
   | 'P-521';
+
 export function generateDidKey(keyType: KeyType) {
-  try {
-    return Ssi.generateDidKey(keyType);
-  } catch (e) {
-    return e;
-  }
+  return Ssi.generateDidKey(keyType);
 }
