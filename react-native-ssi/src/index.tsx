@@ -38,3 +38,7 @@ type KeyType =
 export function generateDidKey(keyType: KeyType) {
   return Ssi.generateDidKey(keyType);
 }
+
+export function expandDidKey(didKey: string) {
+  return Ssi.expandDidKey(didKey);
+}

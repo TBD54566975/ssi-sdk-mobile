@@ -11,4 +11,5 @@ abstract class RNSsiSpec extends ReactContextBaseJavaModule {
 
   public abstract void multiply(double a, double b, Promise promise);
   public abstract void generateDidKey(String keyType, Promise promise);
+  public abstract void expandDidKey(String key, Promise promise);
 }
