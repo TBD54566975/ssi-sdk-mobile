@@ -19,6 +19,22 @@ RCT_REMAP_METHOD(generateDidKey,
     }
 }
 
+RCT_REMAP_METHOD(expandDidKey,
+                 forKey:(NSString*)didKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSError *error;
+    NSData *bytes = SsiExpandDIDKey(didKey, &error);
+    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingMutableContainers error:&error];
+
+    if (error == nil) {
+        resolve(json);
+    } else {
+        reject(@"Something went wrong", @"wrong", error);
+    }
+}
+
 RCT_REMAP_METHOD(createDidKey,
                  ofType:(NSString*)keyType
                  withPublicKey:(NSData*)publicKey

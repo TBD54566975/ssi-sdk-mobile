@@ -12,7 +12,6 @@
 
 
 @class SsiCryptoKeyPair;
-@class SsiDIDDocumentMobile;
 @class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
 @class SsiServiceSetArray;
@@ -29,25 +28,6 @@
 @property (nonatomic) NSString* _Nonnull keyType;
 @property (nonatomic) NSData* _Nullable privKey;
 @property (nonatomic) NSData* _Nullable pubKey;
-@end
-
-@interface SsiDIDDocumentMobile : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) SsiStringArray* _Nullable context;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull controller;
-@property (nonatomic) NSString* _Nonnull alsoKnownAs;
-@property (nonatomic) SsiVerificationMethodArray* _Nullable verificationMethod;
-@property (nonatomic) SsiVerificationMethodSetArray* _Nullable authentication;
-@property (nonatomic) SsiVerificationMethodSetArray* _Nullable assertionMethod;
-@property (nonatomic) SsiVerificationMethodSetArray* _Nullable keyAgreement;
-@property (nonatomic) SsiVerificationMethodSetArray* _Nullable capabilityInvocation;
-@property (nonatomic) SsiVerificationMethodSetArray* _Nullable capabilityDelegation;
-@property (nonatomic) SsiServiceSetArray* _Nullable services;
 @end
 
 @interface SsiDIDKeyWrapper : NSObject <goSeqRefInterface> {
@@ -135,7 +115,7 @@ FOUNDATION_EXPORT SsiDecodedDIDKey* _Nullable SsiDecodeDIDKey(NSString* _Nullabl
 /**
  * ExpandDIDKey Expand turns the DID key into a compliant DID Document
  */
-FOUNDATION_EXPORT SsiDIDDocumentMobile* _Nullable SsiExpandDIDKey(NSString* _Nullable d, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT NSData* _Nullable SsiExpandDIDKey(NSString* _Nullable d, NSError* _Nullable* _Nullable error);
 
 /**
  * GenerateDIDKey takes in a key type value that this library supports and constructs a conformant did:key identifier.

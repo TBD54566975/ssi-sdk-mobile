@@ -3,7 +3,6 @@ package ssi
 import (
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/did"
-	"github.com/TBD54566975/ssi-sdk/util"
 	"github.com/goccy/go-json"
 	"github.com/pkg/errors"
 )
@@ -64,25 +63,16 @@ func DecodeDIDKey(d string) (*DecodedDIDKey, error) {
 }
 
 // ExpandDIDKey Expand turns the DID key into a compliant DID Document
-func ExpandDIDKey(d string) (*DIDDocumentMobile, error) {
+func ExpandDIDKey(d string) ([]byte, error) {
 	didDoc, err := did.DIDKey(d).Expand()
 	if err != nil {
 		return nil, err
 	}
-	contextArray, err := util.InterfaceToStrings(didDoc.Context)
+
+	didDocBytes, err := json.Marshal(didDoc)
 	if err != nil {
 		return nil, err
 	}
-	return &DIDDocumentMobile{
-		Context:              &StringArray{items: contextArray},
-		ID:                   didDoc.ID,
-		Controller:           didDoc.Controller,
-		AlsoKnownAs:          didDoc.AlsoKnownAs,
-		VerificationMethod:   &VerificationMethodArray{items: didDoc.VerificationMethod},
-		Authentication:       &VerificationMethodSetArray{items: didDoc.Authentication},
-		AssertionMethod:      &VerificationMethodSetArray{items: didDoc.AssertionMethod},
-		KeyAgreement:         &VerificationMethodSetArray{items: didDoc.KeyAgreement},
-		CapabilityInvocation: &VerificationMethodSetArray{items: didDoc.CapabilityInvocation},
-		CapabilityDelegation: &VerificationMethodSetArray{items: didDoc.CapabilityDelegation},
-	}, nil
+
+	return didDocBytes, nil
 }
