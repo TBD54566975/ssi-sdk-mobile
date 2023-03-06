@@ -136,5 +136,27 @@
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*",
+        "**/__test__/**/*",
+        "jest/**/*",
+        "**/__mocks__/**/*"
+      ],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "react/no-unstable-nested-components": "off",
+        "react/jsx-no-constructed-context-values": "off",
+        "react/jsx-no-useless-fragment": "off",
+        "no-console": "off",
+        "import/no-anonymous-default-export": "off",
+        "import/no-default-export": "off",
+        "import/no-unassigned-import": "off"
+      }
+    }
+  ]
 }
