@@ -63,10 +63,35 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
     }
   }
 
+  @ReactMethod
+  public void signVerifiableCredentialJWT(String keyId, ReadableMap privateJwk, ReadableMap verifiableCredential, Promise promise) {
+    try {
+      String jwt = Ssi.signVerifiableCredentialJWT(keyId, convertMapToBytes(privateJwk), convertMapToBytes(verifiableCredential));
+      promise.resolve(jwt);
+    } catch (Exception e) {
+      promise.reject(e);
+    }
+  }
+
+  @ReactMethod
+  public void verifyVerifiableCredentialJWT(String keyId, ReadableMap publicJwk, String jwt, Promise promise) {
+    try {
+      byte[] result = Ssi.verifyVerifiableCredentialJWT(keyId, convertMapToBytes(publicJwk), jwt);
+      promise.resolve(convertBytesToMap(result));
+    } catch (Exception e) {
+      promise.reject(e);
+    }
+  }
+
   private WritableMap convertBytesToMap(byte[] bytes) throws JSONException {
     String jsonString = new String(bytes, StandardCharsets.UTF_8);
     JSONObject jObject = new JSONObject(jsonString);
     return convertJsonToMap(jObject);
+  }
+
+  private byte[] convertMapToBytes(ReadableMap map) throws JSONException {
+    JSONObject jObject = convertMapToJson(map);
+    return jObject.toString().getBytes(StandardCharsets.UTF_8);
   }
 
   // Below was taken from:

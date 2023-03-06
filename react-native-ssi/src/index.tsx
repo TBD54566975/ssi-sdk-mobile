@@ -1,5 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import type { Spec } from './NativeRNSsi';
+import type { VerifiableCredential } from './types';
 
 const LINKING_ERROR =
   `The package 'react-native-ssi' doesn't seem to be linked. Make sure: \n\n` +
@@ -41,4 +42,25 @@ export function generateDidKey(keyType: KeyType) {
 
 export function expandDidKey(didKey: string) {
   return Ssi.expandDidKey(didKey);
+}
+
+export function createVerifiableCredential() {
+  const testVC = require('../testdata/vc-example-1.json');
+  return Promise.resolve(testVC as VerifiableCredential);
+}
+
+export function signVerifiableCredentialJWT(
+  keyID: string,
+  privateJwk: Record<string, unknown>,
+  vc: VerifiableCredential
+) {
+  return Ssi.signVerifiableCredentialJWT(keyID, privateJwk, vc);
+}
+
+export function verifyVerifiableCredentialJWT(
+  keyID: string,
+  publicJwk: Record<string, unknown>,
+  jwt: string
+) {
+  return Ssi.verifyVerifiableCredentialJWT(keyID, publicJwk, jwt);
 }

@@ -8,11 +8,19 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import { generateDidKey, expandDidKey } from 'react-native-ssi';
+import {
+  generateDidKey,
+  expandDidKey,
+  createVerifiableCredential,
+  signVerifiableCredentialJWT,
+  verifyVerifiableCredentialJWT,
+} from 'react-native-ssi';
 
 export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
   const [did, setDid] = React.useState<string>('');
+  const [publicJwk, setPublicJwk] = React.useState<Record<string, unknown>>();
+  const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
 
   const addLogLine = (text: unknown) => {
     setLogDisplay(
@@ -31,6 +39,9 @@ export function App() {
                 generateDidKey('RSA').then((result) => {
                   setDid(result.did);
                   addLogLine(did);
+
+                  setPublicJwk(result.publicJwk);
+                  setPrivateJwk(result.privateJwk);
                 });
               }}
             >
@@ -46,6 +57,30 @@ export function App() {
               }}
             >
               <Text style={styles.buttonText}>Expand DIDDoc</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              disabled={!did}
+              style={styles.button}
+              onPress={() => {
+                if (!publicJwk || !privateJwk) {
+                  return;
+                }
+
+                createVerifiableCredential()
+                  .then((vc) => {
+                    return signVerifiableCredentialJWT(did, privateJwk, vc);
+                  })
+                  .then((jwt) => {
+                    return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
+                  })
+                  .then((signedVC) => {
+                    addLogLine(
+                      'Signed & Verified VC:\n' + JSON.stringify(signedVC)
+                    );
+                  });
+              }}
+            >
+              <Text style={styles.buttonText}>Sign & Validate VC</Text>
             </TouchableOpacity>
             <Text style={styles.logDisplay}>{logDisplay}</Text>
           </>
