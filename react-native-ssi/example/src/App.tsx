@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {
   StyleSheet,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { generateDidKey, expandDidKey } from 'react-native-ssi';
 
-export default function App() {
+export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
   const [didKey, setDidKey] = React.useState<string>('');
 
@@ -59,11 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 16,
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
   button: {
     backgroundColor: '#2196F3',
