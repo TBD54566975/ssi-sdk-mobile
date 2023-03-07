@@ -249,7 +249,7 @@ func Android() error {
 
 	apiLevel := "23"
 	println("Building Android - API Level: " + apiLevel + "...")
-	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k")
+	bindAndroid := sh.RunCmd("gomobile", "bind", "-target", "android", "-androidapi", "23", "-tags", "jwx_es256k", "-o", "../react-native-ssi/android/ssi.aar")
 	return bindAndroid("./src/ssi")
 }
 

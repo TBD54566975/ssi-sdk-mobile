@@ -15,15 +15,6 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# MacOS
-.DS_Store
-
-# IDE
-.idea/
-
-# Go mobile outputs
-*.jar
-
 # iOS
 **/xcuserdata/
 **/.build/
