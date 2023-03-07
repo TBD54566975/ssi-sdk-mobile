@@ -37,7 +37,7 @@ export function App() {
               <Text style={styles.buttonText}>Generate DID</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              disabled={didKey == null}
+              disabled={didKey == ''}
               style={styles.button}
               onPress={() => {
                 expandDidKey(didKey).then((result) => {
