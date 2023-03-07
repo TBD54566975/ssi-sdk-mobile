@@ -9,13 +9,17 @@ RCT_REMAP_METHOD(generateDidKey,
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSError *error = [[NSError alloc] init];
-    
-    @try  {
-        SsiDIDKeyWrapper *thing = SsiGenerateDIDKey(keyType, &error);
-        resolve(thing.didKey);
-    } @catch (NSException *exception) {
-        reject(@"Something weng wrong", @"wrong", error);
+    NSError *error;
+    NSData *bytes = SsiGenerateDIDKey(keyType, &error);
+    if (error != nil) {
+        return reject(@"RNSsi", @"error generating DID key", error);
+    }
+
+    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingMutableContainers error:&error];
+    if (error != nil) {
+        reject(@"RNSsi", @"error serializing json", error);
+    } else {
+        resolve(json);
     }
 }
 
@@ -26,12 +30,15 @@ RCT_REMAP_METHOD(expandDidKey,
 {
     NSError *error;
     NSData *bytes = SsiExpandDIDKey(didKey, &error);
-    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingMutableContainers error:&error];
+    if (error != nil) {
+        return reject(@"RNSsi", @"error expanding DID key", error);
+    }
 
-    if (error == nil) {
-        resolve(json);
+    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingMutableContainers error:&error];
+    if (error != nil) {
+        reject(@"RNSsi", @"error serializing json", error);
     } else {
-        reject(@"Something went wrong", @"wrong", error);
+        resolve(json);
     }
 }
 

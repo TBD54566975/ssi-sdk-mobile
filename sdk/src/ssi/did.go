@@ -4,12 +4,13 @@ import (
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/did"
 	"github.com/goccy/go-json"
+	"github.com/lestrrat-go/jwx/jwk"
 	"github.com/pkg/errors"
 )
 
-type DIDKeyWrapper struct {
-	PrivateJSONWebKey []byte
-	DIDKey            string
+type generateDIDKeyResult struct {
+	DidKey string  `json:"didKey" validate:"required"`
+	Jwk    jwk.Key `json:"jwk" validate:"required"`
 }
 
 // GenerateDIDKey takes in a key type value that this library supports and constructs a conformant did:key identifier.
@@ -21,23 +22,24 @@ type DIDKeyWrapper struct {
 // // where secp is an import alias to the secp256k1 library we use "github.com/decred/dcrd/dcrec/secp256k1/v4"
 // secpPrivKey, ok := privKey.(secp.PrivateKey)
 // if !ok { ... }
-func GenerateDIDKey(kt string) (*DIDKeyWrapper, error) {
+func GenerateDIDKey(kt string) ([]byte, error) {
 	privateKey, didKey, err := did.GenerateDIDKey(stringToKeyType(kt))
 	if err != nil {
 		return nil, errors.Wrap(err, "generating did key")
 	}
-	jwkKey, err := crypto.PrivateKeyToJWK(privateKey)
+	jwk, err := crypto.PrivateKeyToJWK(privateKey)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating jwk")
 	}
-	data, err := json.Marshal(jwkKey)
+	resultBytes, err := json.Marshal(generateDIDKeyResult{
+		DidKey: string(*didKey),
+		Jwk:    jwk,
+	})
 	if err != nil {
-		return nil, errors.Wrap(err, "marshalling jwk")
+		return nil, errors.Wrap(err, "marshalling result")
 	}
-	return &DIDKeyWrapper{
-		PrivateJSONWebKey: data,
-		DIDKey:            string(*didKey),
-	}, err
+
+	return resultBytes, nil
 }
 
 // CreateDIDKey constructs a did:key from a specific key type and its corresponding public key

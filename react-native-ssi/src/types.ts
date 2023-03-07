@@ -1,3 +1,8 @@
+export type GenerateDidKeyResult = {
+  didKey: string
+  jwk: Record<string, unknown>
+}
+
 export type DidDocument = {
   '@context'?: string | string[];
   'id'?: string;
