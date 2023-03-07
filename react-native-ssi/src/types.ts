@@ -1,6 +1,6 @@
 export type GenerateDidKeyResult = {
   didKey: string;
-  jwk: Record<string, unknown>;
+  privateJwk: Record<string, unknown>;
 };
 
 export type DidDocument = {

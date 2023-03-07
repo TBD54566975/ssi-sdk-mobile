@@ -13,7 +13,7 @@ import { generateDidKey, expandDidKey } from 'react-native-ssi';
 export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
   const [didKey, setDidKey] = React.useState<string>('');
-  const [jwk, setJwk] = React.useState<Record<string, unknown>>();
+  const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
 
   const addLogLine = (text: string) => {
     setLogDisplay((previousLogs) => previousLogs + text + '\n\n');
@@ -30,7 +30,7 @@ export function App() {
                 generateDidKey('RSA').then((result) => {
                   addLogLine(result.didKey);
                   setDidKey(result.didKey);
-                  setJwk(result.jwk);
+                  setPrivateJwk(result.privateJwk);
                 });
               }}
             >
