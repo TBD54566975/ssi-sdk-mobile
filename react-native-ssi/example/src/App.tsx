@@ -30,7 +30,7 @@ export function App() {
                 generateDidKey('RSA').then((result) => {
                   addLogLine(result.didKey);
                   setDidKey(result.didKey);
-                  setJwk(result.jwk)
+                  setJwk(result.jwk);
                 });
               }}
             >
