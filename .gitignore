@@ -1,4 +1,8 @@
-# OSX
+# macOS
 .DS_Store
 
+# editors
 .idea
+
+# Go mobile outputs
+*.jar
