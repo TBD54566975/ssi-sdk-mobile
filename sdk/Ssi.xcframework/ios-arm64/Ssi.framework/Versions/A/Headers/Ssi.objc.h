@@ -12,7 +12,6 @@
 
 
 @class SsiCryptoKeyPair;
-@class SsiDIDKeyWrapper;
 @class SsiDecodedDIDKey;
 @class SsiServiceSetArray;
 @class SsiStringArray;
@@ -28,16 +27,6 @@
 @property (nonatomic) NSString* _Nonnull keyType;
 @property (nonatomic) NSData* _Nullable privKey;
 @property (nonatomic) NSData* _Nullable pubKey;
-@end
-
-@interface SsiDIDKeyWrapper : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSData* _Nullable privateJSONWebKey;
-@property (nonatomic) NSString* _Nonnull didKey;
 @end
 
 @interface SsiDecodedDIDKey : NSObject <goSeqRefInterface> {
@@ -128,7 +117,7 @@ if err != nil { ... }
 secpPrivKey, ok := privKey.(secp.PrivateKey)
 if !ok { ... }
  */
-FOUNDATION_EXPORT SsiDIDKeyWrapper* _Nullable SsiGenerateDIDKey(NSString* _Nullable kt, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT NSData* _Nullable SsiGenerateDIDKey(NSString* _Nullable kt, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT SsiCryptoKeyPair* _Nullable SsiGenerateEd25519Key(NSError* _Nullable* _Nullable error);
 
