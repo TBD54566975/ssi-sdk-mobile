@@ -4,40 +4,35 @@ import (
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/did"
 	"github.com/goccy/go-json"
+	"github.com/lestrrat-go/jwx/jwk"
 	"github.com/pkg/errors"
 )
 
-type DIDKeyWrapper struct {
-	PrivateJSONWebKey []byte
-	DIDKey            string
+type generateDIDKeyResult struct {
+	DIDKey            string  `json:"didKey"`
+	PrivateJSONWebKey jwk.Key `json:"privateJwk"`
 }
 
 // GenerateDIDKey takes in a key type value that this library supports and constructs a conformant did:key identifier.
-// The function returns the associated private key value cast to the generic golang crypto.PrivateKey interface.
-// To use the private key, it is recommended to re-cast to the associated type. For example, called with the input
-// for a secp256k1 key:
-// privKey, didKey, err := GenerateDIDKey(Secp256k1)
-// if err != nil { ... }
-// // where secp is an import alias to the secp256k1 library we use "github.com/decred/dcrd/dcrec/secp256k1/v4"
-// secpPrivKey, ok := privKey.(secp.PrivateKey)
-// if !ok { ... }
-func GenerateDIDKey(kt string) (*DIDKeyWrapper, error) {
+// The function returns the marshaled JSON representation of `generateDIDKeyResult`.
+func GenerateDIDKey(kt string) ([]byte, error) {
 	privateKey, didKey, err := did.GenerateDIDKey(stringToKeyType(kt))
 	if err != nil {
 		return nil, errors.Wrap(err, "generating did key")
 	}
-	jwkKey, err := crypto.PrivateKeyToJWK(privateKey)
+	privateJwk, err := crypto.PrivateKeyToJWK(privateKey)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating jwk")
 	}
-	data, err := json.Marshal(jwkKey)
-	if err != nil {
-		return nil, errors.Wrap(err, "marshalling jwk")
-	}
-	return &DIDKeyWrapper{
-		PrivateJSONWebKey: data,
+	resultBytes, err := json.Marshal(generateDIDKeyResult{
 		DIDKey:            string(*didKey),
-	}, err
+		PrivateJSONWebKey: privateJwk,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "marshalling result")
+	}
+
+	return resultBytes, nil
 }
 
 // CreateDIDKey constructs a did:key from a specific key type and its corresponding public key
