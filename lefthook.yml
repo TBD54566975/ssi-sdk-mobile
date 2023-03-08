@@ -5,14 +5,14 @@ pre-commit:
       root: "react-native-ssi"
       files: git diff --name-only @{push}
       glob: "react-native-ssi/*.{js,ts,jsx,tsx,json}"
-      run: yarn example && yarn prettier --check {files}
+      run: yarn prettier --check {files}
     lint:
       root: "react-native-ssi"
       files: git diff --name-only @{push}
       glob: "react-native-ssi/*.{js,ts,jsx,tsx}"
-      run: yarn example && yarn eslint {files}
+      run: yarn eslint {files}
     type-check:
       root: "react-native-ssi"
       files: git diff --name-only @{push}
       glob: "react-native-ssi/*.{js,ts,jsx,tsx}"
-      run: yarn example && yarn tsc --noEmit 
+      run: yarn tsc --noEmit 
