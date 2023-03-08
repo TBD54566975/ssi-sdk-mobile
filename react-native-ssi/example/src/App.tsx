@@ -12,8 +12,7 @@ import { generateDidKey, expandDidKey } from 'react-native-ssi';
 
 export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
-  const [didKey, setDidKey] = React.useState<string>('');
-  // const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
+  const [did, setDid] = React.useState<string>('');
 
   const addLogLine = (text: unknown) => {
     setLogDisplay(
@@ -30,22 +29,18 @@ export function App() {
               style={styles.button}
               onPress={() => {
                 generateDidKey('RSA').then((result) => {
-                  setDidKey(result.didKey);
-                  addLogLine(didKey);
-
-                  // currently unused
-                  // setPrivateJwk(result.privateJwk);
-                  // addLogLine(privateJwk);
+                  setDid(result.did);
+                  addLogLine(did);
                 });
               }}
             >
               <Text style={styles.buttonText}>Generate DID</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              disabled={!didKey}
+              disabled={!did}
               style={styles.button}
               onPress={() => {
-                expandDidKey(didKey).then((result) => {
+                expandDidKey(did).then((result) => {
                   addLogLine(result);
                 });
               }}
