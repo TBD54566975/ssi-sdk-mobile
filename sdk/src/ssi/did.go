@@ -26,10 +26,12 @@ func GenerateDIDKey(kt string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "creating private jwk")
 	}
+
 	publicJwk, err := privateJwk.PublicKey()
 	if err != nil {
 		return nil, errors.Wrap(err, "creating public jwk")
 	}
+
 	resultBytes, err := json.Marshal(generateDIDKeyResult{
 		DID:               string(*didKey),
 		PublicJSONWebKey:  publicJwk,
