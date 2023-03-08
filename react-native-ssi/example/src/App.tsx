@@ -13,7 +13,7 @@ import { generateDidKey, expandDidKey } from 'react-native-ssi';
 export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
   const [didKey, setDidKey] = React.useState<string>('');
-  const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
+  // const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
 
   const addLogLine = (text: unknown) => {
     setLogDisplay(
@@ -33,8 +33,9 @@ export function App() {
                   setDidKey(result.didKey);
                   addLogLine(didKey);
 
-                  setPrivateJwk(result.privateJwk);
-                  addLogLine(privateJwk);
+                  // currently unused
+                  // setPrivateJwk(result.privateJwk);
+                  // addLogLine(privateJwk);
                 });
               }}
             >
