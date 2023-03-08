@@ -15,8 +15,10 @@ export function App() {
   const [didKey, setDidKey] = React.useState<string>('');
   const [privateJwk, setPrivateJwk] = React.useState<Record<string, unknown>>();
 
-  const addLogLine = (text: string) => {
-    setLogDisplay((previousLogs) => previousLogs + text + '\n\n');
+  const addLogLine = (text: unknown) => {
+    setLogDisplay(
+      (previousLogs) => previousLogs + JSON.stringify(text) + '\n\n'
+    );
   };
 
   return (
@@ -28,20 +30,22 @@ export function App() {
               style={styles.button}
               onPress={() => {
                 generateDidKey('RSA').then((result) => {
-                  addLogLine(result.didKey);
                   setDidKey(result.didKey);
+                  addLogLine(didKey);
+
                   setPrivateJwk(result.privateJwk);
+                  addLogLine(privateJwk);
                 });
               }}
             >
               <Text style={styles.buttonText}>Generate DID</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              disabled={didKey == ''}
+              disabled={didKey === ''}
               style={styles.button}
               onPress={() => {
                 expandDidKey(didKey).then((result) => {
-                  addLogLine(JSON.stringify(result));
+                  addLogLine(result);
                 });
               }}
             >
