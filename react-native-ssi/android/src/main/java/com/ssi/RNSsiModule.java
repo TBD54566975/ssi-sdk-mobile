@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-import ssi.DIDKeyWrapper;
 import ssi.Ssi;
 
 public class RNSsiModule extends com.ssi.RNSsiSpec {
@@ -48,9 +47,8 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
   @ReactMethod
   public void generateDidKey(String keyType, Promise promise) {
     try {
-      DIDKeyWrapper didKeyWrapper = Ssi.generateDIDKey(keyType);
-      String didKey = didKeyWrapper.getDIDKey();
-      promise.resolve(didKey);
+      byte[] result = Ssi.generateDIDKey(keyType);
+      promise.resolve(convertBytesToMap(result));
     } catch (Exception e) {
       promise.reject(e);
     }
@@ -58,13 +56,17 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
   @ReactMethod
   public void expandDidKey(String key, Promise promise) {
     try {
-      byte[] data = Ssi.expandDIDKey(key);
-      String jsonString = new String(data, StandardCharsets.UTF_8);
-      JSONObject jObject = new JSONObject(jsonString);
-      promise.resolve(convertJsonToMap(jObject));
+      byte[] result = Ssi.expandDIDKey(key);
+      promise.resolve(convertBytesToMap(result));
     } catch (Exception e) {
       promise.reject(e);
     }
+  }
+
+  private WritableMap convertBytesToMap(byte[] bytes) throws JSONException {
+    String jsonString = new String(bytes, StandardCharsets.UTF_8);
+    JSONObject jObject = new JSONObject(jsonString);
+    return convertJsonToMap(jObject);
   }
 
   // Below was taken from:
