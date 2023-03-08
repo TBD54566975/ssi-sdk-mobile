@@ -14,5 +14,5 @@ pre-commit:
     type-check:
       root: "react-native-ssi"
       files: git diff --name-only @{push}
-      glob: "*.{js,ts, jsx, tsx}"
+      glob: "*.{js,ts,jsx,tsx}"
       run: yarn example && yarn tsc --noEmit 
