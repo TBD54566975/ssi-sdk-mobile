@@ -9,7 +9,8 @@ import (
 )
 
 type generateDIDKeyResult struct {
-	DIDKey            string  `json:"didKey"`
+	DID               string  `json:"did"`
+	PublicJSONWebKey  jwk.Key `json:"publicJwk"`
 	PrivateJSONWebKey jwk.Key `json:"privateJwk"`
 }
 
@@ -20,12 +21,20 @@ func GenerateDIDKey(kt string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "generating did key")
 	}
+
 	privateJwk, err := crypto.PrivateKeyToJWK(privateKey)
 	if err != nil {
-		return nil, errors.Wrap(err, "creating jwk")
+		return nil, errors.Wrap(err, "creating private jwk")
 	}
+
+	publicJwk, err := privateJwk.PublicKey()
+	if err != nil {
+		return nil, errors.Wrap(err, "creating public jwk")
+	}
+
 	resultBytes, err := json.Marshal(generateDIDKeyResult{
-		DIDKey:            string(*didKey),
+		DID:               string(*didKey),
+		PublicJSONWebKey:  publicJwk,
 		PrivateJSONWebKey: privateJwk,
 	})
 	if err != nil {

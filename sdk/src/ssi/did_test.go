@@ -15,6 +15,7 @@ func TestGenerateDIDKey(t *testing.T) {
 
 	var result map[string]any
 	assert.NoError(t, json.Unmarshal(resultBytes, &result))
-	assert.True(t, strings.HasPrefix(result["didKey"].(string), "did:key:"))
+	assert.True(t, strings.HasPrefix(result["did"].(string), "did:key:"))
+	assert.NotEmpty(t, result["publicJwk"])
 	assert.NotEmpty(t, result["privateJwk"])
 }
