@@ -38,9 +38,7 @@ export function App() {
       .then((jwt) => {
         return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
       })
-      .then((signedVC) => {
-        addLogLine('Signed & Verified VC:\n' + JSON.stringify(signedVC));
-      });
+      .then(addLogLine);
   };
 
   return (
@@ -52,9 +50,9 @@ export function App() {
               style={styles.button}
               onPress={() => {
                 generateDidKey('RSA').then((result) => {
-                  setDid(result.did);
-                  addLogLine(did);
+                  addLogLine(result.did);
 
+                  setDid(result.did);
                   setPublicJwk(result.publicJwk);
                   setPrivateJwk(result.privateJwk);
                 });
