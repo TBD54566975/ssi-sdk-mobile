@@ -42,6 +42,58 @@ RCT_REMAP_METHOD(expandDidKey,
     }
 }
 
+RCT_REMAP_METHOD(signVerifiableCredentialJWT,
+                 keyId:(NSString *)keyId
+                 privateJwk:(NSDictionary *)privateJwk
+                 verifiableCredential:(NSDictionary *)vc
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSError *error;
+    NSData *privateJwkBytes = [NSJSONSerialization dataWithJSONObject:privateJwk options:NSJSONWritingPrettyPrinted error:&error];
+    if (error != nil) {
+        return reject(@"RNSsi", @"error serializing privateJwk bytes", error);
+    }
+
+    NSData *vcBytes = [NSJSONSerialization dataWithJSONObject:vc options:NSJSONWritingPrettyPrinted error:&error];
+    if (error != nil) {
+        return reject(@"RNSsi", @"error serializing vc bytes", error);
+    }
+
+    NSString *result = SsiSignVerifiableCredentialJWT(keyId, privateJwkBytes, vcBytes, &error);
+    if (error == nil) {
+        resolve(result);
+    } else {
+        reject(@"RNSsi", @"error signing vc", error);
+    }
+}
+
+RCT_REMAP_METHOD(verifyVerifiableCredentialJWT,
+                 keyId:(NSString *)keyId
+                 publicJwk:(NSDictionary *)publicJwk
+                 jwt:(NSString *)jwt
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSError *error;
+    NSData *publicJwkBytes = [NSJSONSerialization dataWithJSONObject:publicJwk options:NSJSONWritingPrettyPrinted error:&error];
+    if (error != nil) {
+        return reject(@"RNssi", @"error serializing publicJwk bytes", error);
+    }
+
+    NSData *vcBytes = SsiVerifyVerifiableCredentialJWT(keyId, publicJwkBytes, jwt, &error);
+    if (error != nil) {
+        return reject(@"RNSsi", @"error verifying vc", error);
+    }
+
+    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:vcBytes options:NSJSONReadingMutableContainers error:&error];
+    if (error == nil) {
+        resolve(json);
+    } else {
+        reject(@"RNSsi", @"error serializing verified vc json", error);
+    }
+}
+
 RCT_REMAP_METHOD(createDidKey,
                  ofType:(NSString*)keyType
                  withPublicKey:(NSData*)publicKey
