@@ -28,8 +28,19 @@ export function App() {
     );
   };
 
-  const createVerifiableCredential = (): VerifiableCredential => {
-    return require('../testdata/vc-example-1.json') as VerifiableCredential;
+  const signAndVerifyVC = () => {
+    if (!publicJwk || !privateJwk) {
+      return;
+    }
+
+    const vc = require('../testdata/vc-example-1.json') as VerifiableCredential;
+    signVerifiableCredentialJWT(did, privateJwk, vc)
+      .then((jwt) => {
+        return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
+      })
+      .then((signedVC) => {
+        addLogLine('Signed & Verified VC:\n' + JSON.stringify(signedVC));
+      });
   };
 
   return (
@@ -65,22 +76,7 @@ export function App() {
             <TouchableOpacity
               disabled={!did}
               style={styles.button}
-              onPress={() => {
-                if (!publicJwk || !privateJwk) {
-                  return;
-                }
-
-                const vc = createVerifiableCredential();
-                signVerifiableCredentialJWT(did, privateJwk, vc)
-                  .then((jwt) => {
-                    return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
-                  })
-                  .then((signedVC) => {
-                    addLogLine(
-                      'Signed & Verified VC:\n' + JSON.stringify(signedVC)
-                    );
-                  });
-              }}
+              onPress={signAndVerifyVC}
             >
               <Text style={styles.buttonText}>Sign & Validate VC</Text>
             </TouchableOpacity>
