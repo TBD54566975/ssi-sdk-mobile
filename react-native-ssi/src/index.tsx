@@ -44,11 +44,6 @@ export function expandDidKey(didKey: string) {
   return Ssi.expandDidKey(didKey);
 }
 
-export function createVerifiableCredential() {
-  const testVC = require('../testdata/vc-example-1.json');
-  return Promise.resolve(testVC as VerifiableCredential);
-}
-
 export function signVerifiableCredentialJWT(
   keyID: string,
   privateJwk: Record<string, unknown>,

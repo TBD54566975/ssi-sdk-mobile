@@ -11,10 +11,10 @@ import {
 import {
   generateDidKey,
   expandDidKey,
-  createVerifiableCredential,
   signVerifiableCredentialJWT,
   verifyVerifiableCredentialJWT,
 } from 'react-native-ssi';
+import type { VerifiableCredential } from 'src/types';
 
 export function App() {
   const [logDisplay, setLogDisplay] = React.useState('App Initialized. \n\n');
@@ -26,6 +26,10 @@ export function App() {
     setLogDisplay(
       (previousLogs) => previousLogs + JSON.stringify(text) + '\n\n'
     );
+  };
+
+  const createVerifiableCredential = (): VerifiableCredential => {
+    return require('../testdata/vc-example-1.json') as VerifiableCredential;
   };
 
   return (
@@ -66,10 +70,8 @@ export function App() {
                   return;
                 }
 
-                createVerifiableCredential()
-                  .then((vc) => {
-                    return signVerifiableCredentialJWT(did, privateJwk, vc);
-                  })
+                const vc = createVerifiableCredential();
+                signVerifiableCredentialJWT(did, privateJwk, vc)
                   .then((jwt) => {
                     return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
                   })

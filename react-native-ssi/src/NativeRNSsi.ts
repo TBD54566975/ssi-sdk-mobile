@@ -9,7 +9,6 @@ import type {
 export interface Spec extends TurboModule {
   generateDidKey(keyType: string): Promise<GenerateDidKeyResult>;
   expandDidKey(didKey: string): Promise<DidDocument>;
-  createVerifiableCredential(): Promise<VerifiableCredential>;
   signVerifiableCredentialJWT(
     keyID: string,
     privateJwk: Record<string, unknown>,
