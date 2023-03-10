@@ -1,5 +1,6 @@
 export type GenerateDidKeyResult = {
-  didKey: string;
+  did: string;
+  publicJwk: Record<string, unknown>;
   privateJwk: Record<string, unknown>;
 };
 
@@ -47,4 +48,51 @@ export type Service = {
   serviceEndpoint?: string | string[];
   routingKeys?: string[];
   accept?: string[];
+};
+
+export type VerifiableCredential = {
+  '@context': string | string[];
+  'id'?: string;
+  'type': string | string[];
+  'issuer': string | Issuer;
+  'issuanceDate': string;
+  'expirationDate'?: string;
+  'credentialStatus'?: CredentialStatus;
+  'credentialSubject': CredentialSubject | CredentialSubject[];
+  'credentialSchema'?: CredentialSchema;
+  'refreshService'?: RefreshService;
+  'termsOfUse'?: TermsOfUse[];
+  'proof'?: Proof | Proof[];
+};
+
+export type Issuer = {
+  id: string;
+};
+
+export type CredentialStatus = {
+  id: string;
+  type: string | string[];
+};
+
+export type CredentialSubject = {
+  id?: string;
+};
+
+export type CredentialSchema = {
+  id: string;
+  type: string | string[];
+};
+
+export type RefreshService = {
+  id: string;
+  type: string | string[];
+};
+
+export type TermsOfUse = {
+  id?: string;
+  type: string | string[];
+};
+
+export type Proof = {
+  type: string | string[];
 };

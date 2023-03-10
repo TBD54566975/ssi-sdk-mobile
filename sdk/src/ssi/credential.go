@@ -5,47 +5,61 @@ import (
 	"github.com/TBD54566975/ssi-sdk/credential/signing"
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/goccy/go-json"
+	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/pkg/errors"
 )
 
-// SignVerifiableCredentialJWT takes in a key ID, key type, private key, and a verifiable credential
-// The keyID and KeyType are used to reconstruct a go-friendly private key to be used for signing
-// the credential, which will be packaged as a JWT according to the VC-JWT 1.0 specification.
-// The resulting is returned as a string representation of a JWT.
-func SignVerifiableCredentialJWT(keyID, keyType string, privateKey, vcJSONBytes []byte) string {
-	privKey, err := crypto.BytesToPrivKey(privateKey, crypto.KeyType(keyType))
+// SignVerifiableCredentialJWT takes in a key ID, private JWK, and a verifiable credential
+// The keyID and privateJWK are used for signing the credential, which will be packaged as
+// a JWT according to the VC-JWT 1.0 specification.
+// The function returns a string representation of a JWT.
+func SignVerifiableCredentialJWT(keyID string, privateJSONWebKey []byte, vcJSONBytes []byte) (string, error) {
+	key, err := jwk.ParseKey(privateJSONWebKey)
 	if err != nil {
-		return ""
+		return "", errors.Wrap(err, "parsing key")
 	}
-	signer, err := crypto.NewJWTSigner(keyID, privKey)
+
+	signer, err := crypto.NewJWTSignerFromKey(keyID, key)
 	if err != nil {
-		return ""
+		return "", errors.Wrap(err, "creating signer")
 	}
 
 	var cred credential.VerifiableCredential
 	if err = json.Unmarshal(vcJSONBytes, &cred); err != nil {
-		return ""
+		return "", errors.Wrap(err, "unmarshalling vc")
 	}
 
 	signedCredential, err := signing.SignVerifiableCredentialJWT(*signer, cred)
 	if err != nil {
-		return ""
+		return "", errors.Wrap(err, "signing vc")
 	}
-	return string(signedCredential)
+
+	return string(signedCredential), nil
 }
 
-// VerifyVerifiableCredentialJWT takes in a key ID, key type, public key, and a JWT string
-// The keyID and KeyType are used to reconstruct a go-friendly public key to be used for verifying
-// the JWT. The JWT is then decoded and verified, and the result is returned as a boolean.
-func VerifyVerifiableCredentialJWT(keyID, keyType string, publicKey []byte, jwt string) bool {
-	pubKey, err := crypto.BytesToPubKey(publicKey, crypto.KeyType(keyType))
+// VerifyVerifiableCredentialJWT takes in a key ID, public JWK, and a JWT string
+// The keyID and publicJWK are used for verifying the JWT.
+// The function returns the marshaled JSON representation of the verified Verifiable Credential.
+func VerifyVerifiableCredentialJWT(keyID string, publicJSONWebKey []byte, jwt string) ([]byte, error) {
+	key, err := jwk.ParseKey(publicJSONWebKey)
 	if err != nil {
-		return false
-	}
-	verifier, err := crypto.NewJWTVerifier(keyID, pubKey)
-	if err != nil {
-		return false
+		return nil, errors.Wrap(err, "parsing key")
 	}
 
-	_, err = signing.VerifyVerifiableCredentialJWT(*verifier, jwt)
-	return err == nil
+	verifier, err := crypto.NewJWTVerifierFromKey(keyID, key)
+	if err != nil {
+		return nil, errors.Wrap(err, "creating verifier")
+	}
+
+	vc, err := signing.VerifyVerifiableCredentialJWT(*verifier, jwt)
+	if err != nil {
+		return nil, errors.Wrap(err, "verifying jwt")
+	}
+
+	vcBytes, err := json.Marshal(vc)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshalling vc")
+	}
+
+	return vcBytes, nil
 }
