@@ -20,7 +20,6 @@ post-merge:
   parallel: true
   commands:
     check-if-need-to-yarn:
-      root: "react-native-ssi"
       files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
       glob: "yarn.lock"
       run: echo -e '\033[33myarn.lock \033[35mchanges were merged from remote. Run \033[33myarn \033[35mto update packages.'
