@@ -1,0 +1,10 @@
+{
+  "name": "@tbd/ssi-sdk-monorepo",
+  "version": "0.0.1",
+  "description": "monorepo for the ssi sdk",
+  "license": "Apache",
+  "private": true,
+  "devDependencies": {
+    "@evilmartians/lefthook": "1.3.3"
+  }
+}
