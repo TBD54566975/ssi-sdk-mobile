@@ -142,6 +142,8 @@ The function returns a string representation of a JWT.
  */
 FOUNDATION_EXPORT NSString* _Nonnull SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSData* _Nullable privateJSONWebKey, NSData* _Nullable vcJSONBytes, NSError* _Nullable* _Nullable error);
 
+FOUNDATION_EXPORT NSData* _Nullable SsiVerifyPresentationRequestFromOIDCVPJWT(NSString* _Nullable keyID, NSData* _Nullable publicJSONWebKey, NSData* _Nullable request, NSError* _Nullable* _Nullable error);
+
 /**
  * VerifyVerifiableCredentialJWT takes in a key ID, public JWK, and a JWT string
 The keyID and publicJWK are used for verifying the JWT.
