@@ -55,7 +55,7 @@ func getSampleCredential() credential.VerifiableCredential {
 		ID:             "test-verifiable-credential",
 		Type:           []string{"VerifiableCredential"},
 		Issuer:         "test-issuer",
-		ExpirationDate: "2021-01-01T00:00:00Z",
+		ExpirationDate: "3000-01-01T00:00:00Z",
 		IssuanceDate:   "2021-01-01T19:23:24Z",
 		CredentialSubject: map[string]any{
 			"id":      "test-vc-id",
