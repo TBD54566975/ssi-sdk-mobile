@@ -2,6 +2,7 @@ package ssi
 
 import (
 	"encoding/json"
+	"os"
 	"testing"
 
 	"github.com/TBD54566975/ssi-sdk/credential"
@@ -9,8 +10,23 @@ import (
 	"github.com/TBD54566975/ssi-sdk/crypto"
 	"github.com/TBD54566975/ssi-sdk/cryptosuite"
 	"github.com/TBD54566975/ssi-sdk/did"
+	"github.com/TBD54566975/ssi-sdk/schema"
 	"github.com/stretchr/testify/assert"
 )
+
+// TestMain is used to set up schema caching in order to load all schemas locally
+func TestMain(m *testing.M) {
+	localSchemas, err := schema.GetAllLocalSchemas()
+	if err != nil {
+		os.Exit(1)
+	}
+	loader, err := schema.NewCachingLoader(localSchemas)
+	if err != nil {
+		os.Exit(1)
+	}
+	loader.EnableHTTPCache()
+	os.Exit(m.Run())
+}
 
 func TestBuildPresentationSubmission(t *testing.T) {
 	privateKey, _, _ := did.GenerateDIDKey("RSA")
