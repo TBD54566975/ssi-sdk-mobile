@@ -34,7 +34,7 @@ export function App() {
     }
 
     const vc = require('../testdata/vc-example-1.json') as VerifiableCredential;
-    signVerifiableCredentialJWT(did, privateJwk, vc)
+    signVerifiableCredentialJWT(did, did, privateJwk, vc)
       .then((jwt) => {
         return verifyVerifiableCredentialJWT(did, publicJwk, jwt);
       })

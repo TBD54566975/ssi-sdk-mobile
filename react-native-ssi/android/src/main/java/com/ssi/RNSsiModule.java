@@ -64,9 +64,9 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
   }
 
   @ReactMethod
-  public void signVerifiableCredentialJWT(String keyId, ReadableMap privateJwk, ReadableMap verifiableCredential, Promise promise) {
+  public void signVerifiableCredentialJWT(String did, String keyId, ReadableMap privateJwk, ReadableMap verifiableCredential, Promise promise) {
     try {
-      String jwt = Ssi.signVerifiableCredentialJWT(keyId, convertMapToBytes(privateJwk), convertMapToBytes(verifiableCredential));
+      String jwt = Ssi.signVerifiableCredentialJWT(did, keyId, convertMapToBytes(privateJwk), convertMapToBytes(verifiableCredential));
       promise.resolve(jwt);
     } catch (Exception e) {
       promise.reject(e);
@@ -74,9 +74,9 @@ public class RNSsiModule extends com.ssi.RNSsiSpec {
   }
 
   @ReactMethod
-  public void verifyVerifiableCredentialJWT(String keyId, ReadableMap publicJwk, String jwt, Promise promise) {
+  public void verifyVerifiableCredentialJWT(String did, ReadableMap publicJwk, String jwt, Promise promise) {
     try {
-      byte[] result = Ssi.verifyVerifiableCredentialJWT(keyId, convertMapToBytes(publicJwk), jwt);
+      byte[] result = Ssi.verifyVerifiableCredentialJWT(did, convertMapToBytes(publicJwk), jwt);
       promise.resolve(convertBytesToMap(result));
     } catch (Exception e) {
       promise.reject(e);

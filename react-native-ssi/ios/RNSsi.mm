@@ -43,6 +43,7 @@ RCT_REMAP_METHOD(expandDidKey,
 }
 
 RCT_REMAP_METHOD(signVerifiableCredentialJWT,
+                 did:(NSString *)did
                  keyId:(NSString *)keyId
                  privateJwk:(NSDictionary *)privateJwk
                  verifiableCredential:(NSDictionary *)vc
@@ -60,7 +61,7 @@ RCT_REMAP_METHOD(signVerifiableCredentialJWT,
         return reject(@"RNSsi", @"error serializing vc bytes", error);
     }
 
-    NSString *result = SsiSignVerifiableCredentialJWT(keyId, privateJwkBytes, vcBytes, &error);
+    NSString *result = SsiSignVerifiableCredentialJWT(did, keyId, privateJwkBytes, vcBytes, &error);
     if (error == nil) {
         resolve(result);
     } else {
@@ -69,7 +70,7 @@ RCT_REMAP_METHOD(signVerifiableCredentialJWT,
 }
 
 RCT_REMAP_METHOD(verifyVerifiableCredentialJWT,
-                 keyId:(NSString *)keyId
+                 did:(NSString *)did
                  publicJwk:(NSDictionary *)publicJwk
                  jwt:(NSString *)jwt
                  resolver:(RCTPromiseResolveBlock)resolve
@@ -81,7 +82,7 @@ RCT_REMAP_METHOD(verifyVerifiableCredentialJWT,
         return reject(@"RNssi", @"error serializing publicJwk bytes", error);
     }
 
-    NSData *vcBytes = SsiVerifyVerifiableCredentialJWT(keyId, publicJwkBytes, jwt, &error);
+    NSData *vcBytes = SsiVerifyVerifiableCredentialJWT(did, publicJwkBytes, jwt, &error);
     if (error != nil) {
         return reject(@"RNSsi", @"error verifying vc", error);
     }

@@ -90,6 +90,23 @@
 @end
 
 /**
+ * Parameters:
+
+	did: DID of the entity signing the resulting PresentationSubmission
+	keyID: id of key to sign resulting PresentationSubmission with
+	privateJWKBytes: bytes of privateJWK to sign resulting PresentationSubmission with
+	requester: DID of entity requesting the resulting PresentationSubmission
+	pdBytes: bytes of PresentationDefinition to build the PresentationSubmission for
+	claimsBytes: bytes of an array of PresentationClaim bytes that are evaluated to potentially fulfill PresentationDefinition with
+	embedTarget: target format to embed the resulting PresentationSubmission within
+
+Returns:
+
+	bytes of VerifiablePresentation, which embeds a PresentationSubmission within the provided embedTarget
+ */
+FOUNDATION_EXPORT NSData* _Nullable SsiBuildPresentationSubmission(NSString* _Nullable did, NSString* _Nullable keyID, NSData* _Nullable privateJWKBytes, NSString* _Nullable requester, NSData* _Nullable pdBytes, NSData* _Nullable claimsBytes, NSString* _Nullable embedTarget, NSError* _Nullable* _Nullable error);
+
+/**
  * CreateDIDKey constructs a did:key from a specific key type and its corresponding public key
 This method does not attempt to validate that the provided public key is of the specified key type.
 A safer method is `GenerateDIDKey` which handles key generation based on the provided key type.
@@ -135,18 +152,18 @@ FOUNDATION_EXPORT BOOL SsiIsSupportedKeyType(NSString* _Nullable kt);
 FOUNDATION_EXPORT BOOL SsiIsSupportedSignatureAlg(NSString* _Nullable sa);
 
 /**
- * SignVerifiableCredentialJWT takes in a key ID, private JWK, and a verifiable credential
-The keyID and privateJWK are used for signing the credential, which will be packaged as
+ * SignVerifiableCredentialJWT takes in a did, key ID, private JWK, and a verifiable credential
+The did, keyID, and privateJWK are used for signing the credential, which will be packaged as
 a JWT according to the VC-JWT 1.0 specification.
 The function returns a string representation of a JWT.
  */
-FOUNDATION_EXPORT NSString* _Nonnull SsiSignVerifiableCredentialJWT(NSString* _Nullable keyID, NSData* _Nullable privateJSONWebKey, NSData* _Nullable vcJSONBytes, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT NSString* _Nonnull SsiSignVerifiableCredentialJWT(NSString* _Nullable did, NSString* _Nullable keyID, NSData* _Nullable privateJSONWebKey, NSData* _Nullable vcJSONBytes, NSError* _Nullable* _Nullable error);
 
 /**
- * VerifyVerifiableCredentialJWT takes in a key ID, public JWK, and a JWT string
-The keyID and publicJWK are used for verifying the JWT.
+ * VerifyVerifiableCredentialJWT takes in a did, public JWK, and a JWT string
+The did and publicJWK are used for verifying the JWT.
 The function returns the marshaled JSON representation of the verified Verifiable Credential.
  */
-FOUNDATION_EXPORT NSData* _Nullable SsiVerifyVerifiableCredentialJWT(NSString* _Nullable keyID, NSData* _Nullable publicJSONWebKey, NSString* _Nullable jwt, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT NSData* _Nullable SsiVerifyVerifiableCredentialJWT(NSString* _Nullable did, NSData* _Nullable publicJSONWebKey, NSString* _Nullable jwt, NSError* _Nullable* _Nullable error);
 
 #endif

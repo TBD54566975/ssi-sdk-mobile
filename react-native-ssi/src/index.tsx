@@ -45,17 +45,18 @@ export function expandDidKey(didKey: string) {
 }
 
 export function signVerifiableCredentialJWT(
+  did: string,
   keyID: string,
   privateJwk: Record<string, unknown>,
   vc: VerifiableCredential
 ) {
-  return Ssi.signVerifiableCredentialJWT(keyID, privateJwk, vc);
+  return Ssi.signVerifiableCredentialJWT(did, keyID, privateJwk, vc);
 }
 
 export function verifyVerifiableCredentialJWT(
-  keyID: string,
+  did: string,
   publicJwk: Record<string, unknown>,
   jwt: string
 ) {
-  return Ssi.verifyVerifiableCredentialJWT(keyID, publicJwk, jwt);
+  return Ssi.verifyVerifiableCredentialJWT(did, publicJwk, jwt);
 }
