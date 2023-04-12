@@ -9,17 +9,17 @@ import (
 	"github.com/pkg/errors"
 )
 
-// SignVerifiableCredentialJWT takes in a key ID, private JWK, and a verifiable credential
-// The keyID and privateJWK are used for signing the credential, which will be packaged as
+// SignVerifiableCredentialJWT takes in a did, key ID, private JWK, and a verifiable credential
+// The did, keyID, and privateJWK are used for signing the credential, which will be packaged as
 // a JWT according to the VC-JWT 1.0 specification.
 // The function returns a string representation of a JWT.
-func SignVerifiableCredentialJWT(keyID string, privateJSONWebKey []byte, vcJSONBytes []byte) (string, error) {
+func SignVerifiableCredentialJWT(did string, keyID string, privateJSONWebKey []byte, vcJSONBytes []byte) (string, error) {
 	key, err := jwk.ParseKey(privateJSONWebKey)
 	if err != nil {
 		return "", errors.Wrap(err, "parsing key")
 	}
 
-	signer, err := crypto.NewJWTSignerFromKey(keyID, key)
+	signer, err := crypto.NewJWTSignerFromKey(did, keyID, key)
 	if err != nil {
 		return "", errors.Wrap(err, "creating signer")
 	}
@@ -37,21 +37,21 @@ func SignVerifiableCredentialJWT(keyID string, privateJSONWebKey []byte, vcJSONB
 	return string(signedCredential), nil
 }
 
-// VerifyVerifiableCredentialJWT takes in a key ID, public JWK, and a JWT string
-// The keyID and publicJWK are used for verifying the JWT.
+// VerifyVerifiableCredentialJWT takes in a did, public JWK, and a JWT string
+// The did and publicJWK are used for verifying the JWT.
 // The function returns the marshaled JSON representation of the verified Verifiable Credential.
-func VerifyVerifiableCredentialJWT(keyID string, publicJSONWebKey []byte, jwt string) ([]byte, error) {
+func VerifyVerifiableCredentialJWT(did string, publicJSONWebKey []byte, jwt string) ([]byte, error) {
 	key, err := jwk.ParseKey(publicJSONWebKey)
 	if err != nil {
 		return nil, errors.Wrap(err, "parsing key")
 	}
 
-	verifier, err := crypto.NewJWTVerifierFromKey(keyID, key)
+	verifier, err := crypto.NewJWTVerifierFromKey(did, key)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating verifier")
 	}
 
-	vc, err := signing.VerifyVerifiableCredentialJWT(*verifier, jwt)
+	_, _, vc, err := signing.VerifyVerifiableCredentialJWT(*verifier, jwt)
 	if err != nil {
 		return nil, errors.Wrap(err, "verifying jwt")
 	}

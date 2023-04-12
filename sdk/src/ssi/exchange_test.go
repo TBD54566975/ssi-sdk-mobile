@@ -29,9 +29,10 @@ func TestMain(m *testing.M) {
 }
 
 func TestBuildPresentationSubmission(t *testing.T) {
-	privateKey, _, _ := did.GenerateDIDKey("RSA")
+	privateKey, did, _ := did.GenerateDIDKey("RSA")
 	privateJWK, _ := crypto.PrivateKeyToJWK(privateKey)
 	kid := "test-key"
+	requester := "requester"
 
 	privateJWKBytes, err := json.Marshal(privateJWK)
 	assert.NoError(t, err)
@@ -48,7 +49,7 @@ func TestBuildPresentationSubmission(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotEmpty(t, claimsBytes)
 
-	bytes, err := BuildPresentationSubmission(kid, privateJWKBytes, pdBytes, claimsBytes, string(exchange.JWTVPTarget))
+	bytes, err := BuildPresentationSubmission(string(*did), kid, privateJWKBytes, requester, pdBytes, claimsBytes, string(exchange.JWTVPTarget))
 	assert.NoError(t, err)
 	assert.NotEmpty(t, bytes)
 }

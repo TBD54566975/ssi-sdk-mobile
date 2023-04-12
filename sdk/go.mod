@@ -3,7 +3,7 @@ module github.com/TBD54566975/ssi-sdk-mobile
 go 1.20
 
 require (
-	github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230328175208-0ce55b2b0262
+	github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230412184407-ba89e4893e6a
 	github.com/goccy/go-json v0.10.2
 	github.com/lestrrat-go/jwx/v2 v2.0.9
 	github.com/magefile/mage v1.14.0
@@ -14,6 +14,7 @@ require (
 )
 
 require (
+	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
