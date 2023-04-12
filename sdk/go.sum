@@ -1,5 +1,7 @@
 github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230410220001-cbd9818e8367 h1:dYkvkaLS7fLBPy06PDal2DZBHYiD79Z//1sOjaojR1U=
 github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230410220001-cbd9818e8367/go.mod h1:Ro9+HDADuYcLnCYKIL8pu92XWITKetTPOqfwLThplO0=
+github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230412184407-ba89e4893e6a h1:HLvYZYBdVSTCMRpOfrQtNodl/LujrzoeFrgv82xkhBk=
+github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230412184407-ba89e4893e6a/go.mod h1:Ro9+HDADuYcLnCYKIL8pu92XWITKetTPOqfwLThplO0=
 github.com/btcsuite/btcd/btcec/v2 v2.3.2 h1:5n0X6hX0Zk+6omWcihdYvdAlGf2DfasC0GMf7DClJ3U=
 github.com/btcsuite/btcd/btcec/v2 v2.3.2/go.mod h1:zYzJ8etWJQIv1Ogk7OzpWjowwOdXY1W/17j2MW85J04=
 github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce h1:YtWJF7RHm2pYCvA5t0RPmAaLUhREsKuKd+SLhxFbFeQ=

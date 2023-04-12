@@ -46,7 +46,7 @@ func TestSignAndVerifyVCJWT(t *testing.T) {
 	assert.NotEmpty(t, jwt)
 
 	// verify it
-	vc, err := VerifyVerifiableCredentialJWT(did, kid, publicJwkBytes, jwt)
+	vc, err := VerifyVerifiableCredentialJWT(did, publicJwkBytes, jwt)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, vc)
 }
