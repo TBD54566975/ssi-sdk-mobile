@@ -11,6 +11,9 @@ import (
 )
 
 func TestSignAndVerifyVCJWT(t *testing.T) {
+	did := "test-did"
+	kid := "test-key-id"
+
 	// Create a new public & private JWK
 	_, privKey, err := ssi.GenerateEd25519Key()
 	assert.NoError(t, err)
@@ -38,12 +41,12 @@ func TestSignAndVerifyVCJWT(t *testing.T) {
 	assert.NotEmpty(t, vcBytes)
 
 	// sign it
-	jwt, err := SignVerifiableCredentialJWT("test-key-id", privateJwkBytes, vcBytes)
+	jwt, err := SignVerifiableCredentialJWT(did, kid, privateJwkBytes, vcBytes)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, jwt)
 
 	// verify it
-	vc, err := VerifyVerifiableCredentialJWT("test-key-id", publicJwkBytes, jwt)
+	vc, err := VerifyVerifiableCredentialJWT(did, kid, publicJwkBytes, jwt)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, vc)
 }

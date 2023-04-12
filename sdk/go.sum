@@ -1,5 +1,7 @@
-github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230328175208-0ce55b2b0262 h1:mMd9kTYtqEHAbiYwtnH94qyY4Meanp0mWkOktrZyVv4=
-github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230328175208-0ce55b2b0262/go.mod h1:Ro9+HDADuYcLnCYKIL8pu92XWITKetTPOqfwLThplO0=
+github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230410220001-cbd9818e8367 h1:dYkvkaLS7fLBPy06PDal2DZBHYiD79Z//1sOjaojR1U=
+github.com/TBD54566975/ssi-sdk v0.0.3-alpha.0.20230410220001-cbd9818e8367/go.mod h1:Ro9+HDADuYcLnCYKIL8pu92XWITKetTPOqfwLThplO0=
+github.com/btcsuite/btcd/btcec/v2 v2.3.2 h1:5n0X6hX0Zk+6omWcihdYvdAlGf2DfasC0GMf7DClJ3U=
+github.com/btcsuite/btcd/btcec/v2 v2.3.2/go.mod h1:zYzJ8etWJQIv1Ogk7OzpWjowwOdXY1W/17j2MW85J04=
 github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce h1:YtWJF7RHm2pYCvA5t0RPmAaLUhREsKuKd+SLhxFbFeQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
@@ -23,6 +25,7 @@ github.com/hyperledger/aries-framework-go v0.1.9 h1:qwfjV/zGaH745AMyQwpL3296uRCb
 github.com/hyperledger/aries-framework-go v0.1.9/go.mod h1:qrOxEGVsu8M2RahaJgM8nz9AcAHjR/dKd1JIJ3ieJhY=
 github.com/hyperledger/aries-framework-go/spi v0.0.0-20221025204933-b807371b6f1e h1:SxbXlF39661T9w/L9PhVdtbJfJ51Pm4JYEEW6XfZHEQ=
 github.com/hyperledger/aries-framework-go/spi v0.0.0-20221025204933-b807371b6f1e/go.mod h1:oryUyWb23l/a3tAP9KW+GBbfcfqp9tZD4y5hSkFrkqI=
+github.com/jarcoal/httpmock v1.3.0 h1:2RJ8GP0IIaWwcC9Fp2BmVi8Kog3v2Hn7VXM3fTd+nuc=
 github.com/kilic/bls12-381 v0.1.1-0.20210503002446-7b7597926c69 h1:kMJlf8z8wUcpyI+FQJIdGjAhfTww1y0AbQEv86bpVQI=
 github.com/kilic/bls12-381 v0.1.1-0.20210503002446-7b7597926c69/go.mod h1:tlkavyke+Ac7h8R3gZIjI5LKBcvMlSWnXNMgT3vZXo8=
 github.com/kr/pretty v0.2.1 h1:Fmg33tUaq4/8ym9TJN1x7sLJnHVwhP33CNkpYV/7rwI=
