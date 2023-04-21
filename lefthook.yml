@@ -15,11 +15,4 @@ pre-commit:
       root: "react-native-ssi"
       files: git diff --name-only @{push}
       glob: "react-native-ssi/*.{js,ts,jsx,tsx}"
-      run: yarn tsc --noEmit 
-post-merge:
-  parallel: true
-  commands:
-    check-if-need-to-yarn:
-      files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
-      glob: "yarn.lock"
-      run: echo -e '\033[33myarn.lock \033[35mchanges were merged from remote. Run \033[33myarn \033[35mto update packages.'
+      run: yarn tsc --noEmit
