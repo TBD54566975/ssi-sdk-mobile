@@ -1,3 +1,7 @@
+### ⚠️ Please note that this package is a prototype and is not intended for production. Breaking changes will appear without warning. Future adoption is uncertain.
+
+<br /><br />
+
 # react-native-ssi
 
 Module for Block's Self Sovereign Identity SDK
@@ -5,18 +9,12 @@ Module for Block's Self Sovereign Identity SDK
 ## Installation
 
 ```sh
-npm install react-native-ssi
+yarn add react-native-ssi
 ```
 
 ## Usage
 
-```js
-import { multiply } from 'react-native-ssi';
-
-// ...
-
-const result = await multiply(3, 7);
-```
+Docs TBD
 
 ## Contributing
 

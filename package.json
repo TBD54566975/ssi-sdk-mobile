@@ -4,6 +4,9 @@
   "description": "monorepo for the ssi sdk",
   "license": "Apache",
   "private": true,
+  "scripts": {
+    "postinstall": "yarn lefthook install"
+  },
   "devDependencies": {
     "@evilmartians/lefthook": "1.3.3"
   }

@@ -1,3 +1,7 @@
+### ⚠️ Please note that this package is a prototype and is not intended for production. Breaking changes will appear without warning. Future adoption is uncertain.
+
+<br /> <br/>
+
 # SSI SDK Mobile
 
 This project is a wrapper around the [SSI SDK](https://github.com/TBD54566975/ssi-sdk) for [Go Mobile](https://pkg.go.dev/golang.org/x/mobile), a tool used to build mobile bindings for the SDK supporting both Android and iOS.
@@ -14,7 +18,6 @@ mage android
 ```
 
 ## Project Resources
-
 
 | Resource                                   | Description                                                                   |
 | ------------------------------------------ | ----------------------------------------------------------------------------- |
